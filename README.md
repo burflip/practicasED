@@ -1,2 +1,2 @@
 # practicasED
-Código de prácticas de ED para iteradores
+Código de prácticas de ED para TDA

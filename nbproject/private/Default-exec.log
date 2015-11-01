@@ -1,0 +1,10 @@
+called: g++
+	/home/valentin/Documentos/GII/ED/Prácticas/P2/Crimenes/practica2
+	g++
+	-c
+	-Wall
+	-std=c++11
+	principal.cpp
+	-o
+	principal.o
+

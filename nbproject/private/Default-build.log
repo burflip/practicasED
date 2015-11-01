@@ -1,0 +1,109 @@
+g++ -c -Wall -std=c++11 principal.cpp -o principal.o
+In file included from crimen.h:107:0,
+                 from conjunto.h:13,
+                 from principal.cpp:1:
+crimen.hxx: In copy constructor ‘crimen::crimen(const crimen&)’:
+crimen.hxx:13:23: error: no matching function for call to ‘crimen::setID(long int)’
+  this->setID(x.getID());
+                       ^
+crimen.hxx:13:23: note: candidate is:
+In file included from conjunto.h:13:0,
+                 from principal.cpp:1:
+crimen.h:26:8: note: void crimen::setID(long int&)
+   void setID(long int & id);
+        ^
+crimen.h:26:8: note:   no known conversion for argument 1 from ‘long int’ to ‘long int&’
+In file included from crimen.h:107:0,
+                 from conjunto.h:13,
+                 from principal.cpp:1:
+crimen.hxx:14:24: error: ‘const class crimen’ has no member named ‘getCase_number’
+  this->setCaseNumber(x.getCase_number());
+                        ^
+crimen.hxx:17:27: error: no matching function for call to ‘crimen::setIUCR(int)’
+  this->setIUCR(x.getIUCR());
+                           ^
+crimen.hxx:17:27: note: candidate is:
+In file included from conjunto.h:13:0,
+                 from principal.cpp:1:
+crimen.h:30:8: note: void crimen::setIUCR(int&)
+   void setIUCR(int & iucr);
+        ^
+crimen.h:30:8: note:   no known conversion for argument 1 from ‘int’ to ‘int&’
+In file included from crimen.h:107:0,
+                 from conjunto.h:13,
+                 from principal.cpp:1:
+crimen.hxx: At global scope:
+crimen.hxx:58:6: error: prototype for ‘void crimen::setIUCR(int)’ does not match any in class ‘crimen’
+ void crimen::setIUCR(int iucr)
+      ^
+In file included from conjunto.h:13:0,
+                 from principal.cpp:1:
+crimen.h:30:8: error: candidate is: void crimen::setIUCR(int&)
+   void setIUCR(int & iucr);
+        ^
+In file included from crimen.h:107:0,
+                 from conjunto.h:13,
+                 from principal.cpp:1:
+crimen.hxx:108:6: error: prototype for ‘void crimen::setFBICode(const char&)’ does not match any in class ‘crimen’
+ void crimen::setFBICode(const char &f)
+      ^
+In file included from conjunto.h:13:0,
+                 from principal.cpp:1:
+crimen.h:40:8: error: candidate is: void crimen::setFBICode(char)
+   void setFBICode(const char f);
+        ^
+In file included from crimen.h:107:0,
+                 from conjunto.h:13,
+                 from principal.cpp:1:
+crimen.hxx: In member function ‘bool crimen::getDomestic() const’:
+crimen.hxx:183:15: error: ‘const class crimen’ has no member named ‘domesticd’
+  return this->domesticd;
+               ^
+crimen.hxx: In member function ‘char crimen::getFBICode() const’:
+crimen.hxx:203:15: error: invalid conversion from ‘const char*’ to ‘char’ [-fpermissive]
+  return this->FBI_code;
+               ^
+crimen.hxx: In member function ‘crimen& crimen::operator=(const crimen&)’:
+crimen.hxx:234:23: error: no matching function for call to ‘crimen::setID(long int)’
+  this->setID(x.getID());
+                       ^
+crimen.hxx:234:23: note: candidate is:
+crimen.hxx:38:6: note: void crimen::setID(long int&)
+ void crimen::setID(long int & id)
+      ^
+crimen.hxx:38:6: note:   no known conversion for argument 1 from ‘long int’ to ‘long int&’
+crimen.hxx:235:24: error: ‘const class crimen’ has no member named ‘getCase_number’
+  this->setCaseNumber(x.getCase_number());
+                        ^
+crimen.hxx:238:27: error: no matching function for call to ‘crimen::setIUCR(int)’
+  this->setIUCR(x.getIUCR());
+                           ^
+crimen.hxx:238:27: note: candidate is:
+In file included from conjunto.h:13:0,
+                 from principal.cpp:1:
+crimen.h:30:8: note: void crimen::setIUCR(int&)
+   void setIUCR(int & iucr);
+        ^
+crimen.h:30:8: note:   no known conversion for argument 1 from ‘int’ to ‘int&’
+In file included from crimen.h:107:0,
+                 from conjunto.h:13,
+                 from principal.cpp:1:
+crimen.hxx:255:9: error: invalid initialization of non-const reference of type ‘crimen&’ from an rvalue of type ‘crimen* const’
+  return this;
+         ^
+principal.cpp: In function ‘int main()’:
+principal.cpp:65:11: warning: unused variable ‘f2’ [-Wunused-variable]
+   fecha * f2 = new fecha();
+           ^
+In file included from crimen.h:107:0,
+                 from conjunto.h:13,
+                 from principal.cpp:1:
+crimen.hxx: In member function ‘bool crimen::getDomestic() const’:
+crimen.hxx:184:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+crimen.hxx: In member function ‘crimen& crimen::operator=(const crimen&)’:
+crimen.hxx:256:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+make: *** [principal.o] Error 1

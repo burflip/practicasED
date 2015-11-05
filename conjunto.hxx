@@ -195,7 +195,7 @@ bool conjunto :: cheq_rep( ) const
 			
 }
 
-ostream &  operator << ( ostream & sal, const conjunto & D)
+ostream & operator << ( ostream & sal, const conjunto & D)
 {
 	for (int i=0; i<conjunto.size(); i++)
 		sal << conjunto.at(i) << endl;

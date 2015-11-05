@@ -29,7 +29,7 @@ class crimen {
   void setCaseNumber(const string &  s);
   void setDate(const fecha & d);
   void setBlock(const string &  s);
-  void setIUCR(int iucr);
+  void setIUCR(const string & iucr);
   void setPrimaryType(const string &  s);
   void setDescription(const string &  s);
   void setLocationDescription(const string &  s);
@@ -39,7 +39,7 @@ class crimen {
   void setDistrict(int d);
   void setWard(int w);
   void setCommunityArea(int c);
-  void setFBICode(char &f);
+  void setFBICode(string f);
   void setXCoord(long int x);
   void setYCoord(long int y);
   void setYear(int y);
@@ -52,7 +52,7 @@ class crimen {
   string getCaseNumber( ) const;
   fecha getDate() const;
   string getBlock() const;
-  int getIUCR() const;
+  string getIUCR() const;
   string getPrimaryType() const;
   string getDescription() const;
   string getLocationDescription() const;
@@ -84,7 +84,7 @@ class crimen {
    string case_number;
    fecha date;
    string block;
-   int IUCR;
+   string IUCR;
    string primary_type;
    string description;
    string location_description;

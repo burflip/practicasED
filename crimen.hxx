@@ -12,8 +12,6 @@ crimen::crimen()
 }
 crimen::crimen(const crimen& x)
 {
-    char f[] = {'a','b','c'};
-    
 	this->setID(x.getID());
 	this->setCaseNumber(x.getCaseNumber());
 	this->setDate(x.getDate());
@@ -28,7 +26,7 @@ crimen::crimen(const crimen& x)
 	this->setDistrict(x.getDistrict());
 	this->setWard(x.getWard());
 	this->setCommunityArea(x.getCommunityArea());
-        this->setFBICode(*f);
+        this->setFBICode(x.getFBICode());
 	this->setXCoord(x.getXCoord());
 	this->setYCoord(x.getYCoord());
 	this->setYear(x.getYear());
@@ -59,7 +57,7 @@ void crimen::setBlock(const string & s)
 	this->block = s;
 
 }
-void crimen::setIUCR(int iucr)
+void crimen::setIUCR(const string & iucr)
 {
 	this->IUCR = iucr;
 
@@ -109,7 +107,7 @@ void crimen::setCommunityArea(int c)
 	this->community_area = c;
 
 }
-void crimen::setFBICode(const string & f)
+void crimen::setFBICode(const string f)
 {
     this->FBI_code = f;
 }
@@ -161,7 +159,7 @@ string crimen::getBlock() const
 {
 	return this->block;
 }
-int crimen::getIUCR() const
+string crimen::getIUCR() const
 {
 	return this->IUCR;
 }
@@ -256,23 +254,52 @@ crimen & crimen::operator=(const crimen & x)
 	this->setLongitude(x.getLongitude());
 	return *this;
 }
+
+/*
+ DUDAS:
+ * 1º Aquí, lo que hay que comparar son las IDs? las fechas? miembro a miembro?
+ */
+
 bool crimen::operator==(const crimen & x) const
 {
-	return true;
+    return (
+    x.getID() == this->getID()
+    && x.getCaseNumber() == this->getCaseNumber()
+    && x.getDate() == this->getDate()
+    && x.getBlock() == this->getBlock()
+    && x.getIUCR() == this->getIUCR()
+    && x.getPrimaryType() == this->getPrimaryType()
+    && x.getDescription() == this->getDescription()
+    && x.getLocationDescription() == this->getLocationDescription()
+    && x.getArrest() == this->getArrest()
+    && x.getDomestic() == this->getDomestic()
+    && x.getBeat() == this->getBeat()
+    && x.getDistrict() == this->getDistrict()
+    && x.getWard() == this->getWard()
+    && x.getCommunityArea() == this->getCommunityArea()
+    && x.getFBICode() == this->getFBICode()
+    && x.getXCoord() == this->getXCoord()
+    && x.getYCoord() == this->getYCoord()
+    && x.getYear() == this->getYear()
+    && x.getUpdatedOn() == this->getUpdatedOn()
+    && x.getLatitude() == this->getLatitude()
+    && x.getLongitude() == this->getLongitude()
+    );
 }
+
 bool crimen::operator<(const crimen & x) const
 {
-	return true;
+	return (this->getID() < x.getID());
 }
 bool crimen::operator<=(const crimen & x) const
 {
-	return true;
+	return (this->getID() < x.getID() || this->getID() == x.getID());
 }
 bool crimen::operator>(const crimen & x) const
 {
-	return true;
+	return (this->getID() > x.getID());
 }
 bool crimen::operator>=(const crimen & x) const
 {
-	return true;
+	return (this->getID() > x.getID() || this->getID() == x.getID());
 }

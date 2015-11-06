@@ -12,8 +12,11 @@ conjunto::conjunto() {
 }
 
 conjunto::conjunto(const conjunto & d) {
-    for (int i = 0; (unsigned) i < d.size(); i++)
-        vc.at(i) = d.getAt(i);
+    this->vc.clear();
+    for (unsigned int i = 0; i < d.size(); i++) {
+        this->vc.push_back(d.getAt(i));
+    }
+        
 }
 
 pair <conjunto::entrada, bool> conjunto::find(const long int & id) const {
@@ -39,17 +42,28 @@ crimen conjunto::getAt(int i) const {
     return this->vc.at(i);
 }
 
+
+string conjunto::zeroFill(const string & s, unsigned int n) const
+{
+    string filled = s;
+    int diff = n - s.size();
+    for(int i = 0; i<diff; i++){
+        filled = "0"+filled;
+    }
+    return filled;
+}
 conjunto conjunto::findIUCR(const string & iucr) const {
     conjunto c;
-
+    string zfIUCR = zeroFill(iucr,4);
     for (unsigned int i = 0; i < this->vc.size(); i++) {
         int j = 0;
-        if (this->getAt(i).getIUCR() == iucr) {
+        if (vc.at(i).getIUCR() == zfIUCR) {
             c.insert(vc.at(i));
             j++;
         }
 
     }
+    cout << c << endl;
     return c;
 }
 
@@ -73,7 +87,6 @@ bool conjunto::insert(const conjunto::entrada & e) {
 
     bool insertado = false;
     vector<conjunto::entrada>::iterator it = vc.begin();
-
 
 
     if (vc.empty()) {
@@ -143,8 +156,12 @@ bool conjunto::erase(const conjunto::entrada & e) {
 }
 
 conjunto & conjunto::operator=(const conjunto & org) {
-    for (unsigned int i = 0; i < vc.size(); i++)
-        vc.at(i) = org.getAt(i);
+    this->vc.clear();
+    
+    for (unsigned int i = 0; i < org.size(); i++){
+        this->vc.push_back(org.getAt(i));
+    }
+        
 
     return *this;
 }
@@ -165,7 +182,7 @@ bool conjunto::empty() const {
 bool conjunto::cheq_rep() const {
     bool inv = false;
 
-    for (unsigned int i = 0; i < vc.size(); i++) {
+    for (unsigned int i = 0; i < vc.size()-1; i++) {
         if ((vc.at(i).getID() < vc.at(i + 1).getID()) && vc.at(i).getID() > 0)
             inv = true;
     }

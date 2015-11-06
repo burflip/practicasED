@@ -8,7 +8,28 @@ using namespace std;
 //CONSTRUCTORES
 
 crimen::crimen() {
-
+    fecha f;
+    this->setID(0);
+    this->setCaseNumber("");
+    this->setDate(f);
+    this->setBlock("");
+    this->setIUCR("");
+    this->setPrimaryType("");
+    this->setDescription("");
+    this->setLocationDescription("");
+    this->setArrest(false);
+    this->setDomestic(false);
+    this->setBeat(0);
+    this->setDistrict(0);
+    this->setWard(0);
+    this->setCommunityArea(0);
+    this->setFBICode("");
+    this->setXCoord(0);
+    this->setYCoord(0);
+    this->setYear(0);
+    this->setUpdatedOn(f);
+    this->setLatitude(1.0);
+    this->setLongitude(1.0);
 }
 
 crimen::crimen(const crimen& x) {

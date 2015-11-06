@@ -188,6 +188,12 @@ private:
 
     //  declaracion del operator<< como metodo amigo
     friend ostream & operator<<(ostream & sal, const conjunto & D);
+    /**
+     * @brief Devuelve un número de t cifras con 0s a la dercha hasta t+n cifras
+     * @param s
+     * @return 
+     */
+    string zeroFill(const string & s, unsigned int n) const;
 
 
 };

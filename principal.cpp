@@ -5,165 +5,251 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <chrono>
 
 using namespace std;
-	
-	/** @brief lee un fichero de delitos, linea a linea
-	@param[in] s nombre del fichero
-        @param[in,out] C conjunto sobre el que se lee
-	@return true si la lectura ha sido correcta, false en caso contrario
-	*/
 
-bool load(conjunto &  C, const string & s) {
- ifstream fe;
- string cadena;
- crimen crim;
+/** @brief lee un fichero de delitos, linea a linea
+@param[in] s nombre del fichero
+@param[in,out] C conjunto sobre el que se lee
+@return true si la lectura ha sido correcta, false en caso contrario
+ */
 
- cout << "Abrimos "<< s << endl;
- fe.open(s.c_str(), ifstream::in);
- if (fe.fail())    
- {
-   cerr << "Error al abrir el fichero " << s << endl;
- } else {
-   getline(fe,cadena,'\n'); //leo la cabecera del fichero
-   cout << cadena << endl;
-    while ( !fe.eof() )
-      { getline(fe,cadena,'\n');
-       	if (!fe.eof()) {
-	   cout << "leo:: "<< cadena << endl;
+bool load(conjunto & C, const string & s, int times) {
+    ifstream fe;
+    string cadena;
+    crimen crim;
 
- 	size_t pos = 0;
-	size_t pos_bus = cadena.find_first_of(",");
-	string cad = cadena.substr (pos, (pos_bus - pos));
-	crim.setID(stol(cad));
-	
-	pos = pos_bus+1;
-	pos_bus = cadena.find_first_of( ",", pos);
-	crim.setCaseNumber(cadena.substr (pos, (pos_bus - pos)));
+    cout << "Abrimos " << s << endl;
+    fe.open(s.c_str(), ifstream::in);
+    if (fe.fail()) {
+        cerr << "Error al abrir el fichero " << s << endl;
+    } else {
+        getline(fe, cadena, '\n'); //leo la cabecera del fichero
+        int i = 0;
+        while (i < times && !fe.eof()) {
+            getline(fe, cadena, '\n');
+            if (!fe.eof()) {
+                //cout << "#" << i << ":" << cadena << endl;
+                //cout << endl;
 
-	pos = pos_bus+1;
-	pos_bus = cadena.find_first_of( ",", pos);
-	cad = cadena.substr (pos, (pos_bus - pos));
-	fecha fecha1 (cad);
-	crim.setDate(fecha1);
 
-	pos = pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	crim.setBlock (cadena.substr (pos, (pos_bus - pos)));
+                //cout << "CAD" << endl;
+                size_t pos = 0;
+                size_t pos_bus = cadena.find_first_of(",");
+                string cad = cadena.substr(pos, (pos_bus - pos));
+                //cout << "id:" << cad << endl;
+                crim.setID(stol(cad));
 
-	pos = pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	crim.setIUCR (cadena.substr(pos, (pos_bus - pos)));
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                crim.setCaseNumber(cad);
+                //cout << "casenumber:" << cad << endl;
 
-	pos = pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	crim.setPrimaryType (cadena.substr(pos, (pos_bus - pos)));
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                fecha fecha1(cad);
+                crim.setDate(fecha1);
+                //cout << "date:" << cad << endl;
 
-	pos = pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	if (cadena.compare(pos_bus+1, 1, "\"") == 0) {
-		pos_bus = cadena.find_first_of("\"",pos+1);
-		crim.setDescription (cadena.substr(pos+1, (pos_bus-(pos+1))));
-	}
-	else {
-		crim.setDescription (cadena.substr(pos, (pos_bus - pos)));
-	}
-	
-	pos = pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	crim.setLocationDescription (cadena.substr(pos, (pos_bus - pos)));
 
-	pos = pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	crim.setLocationDescription (cadena.substr(pos, (pos_bus - pos)));
 
-	pos = pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	cad = cadena.substr (pos, (pos_bus - pos));
-	bool arrest = (cad == "true");
-	crim.setArrest(arrest); 
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                crim.setBlock(cad);
+                //cout << "block:" << cad << endl;
 
-	pos = pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	cad = cadena.substr (pos, (pos_bus - pos));
-	bool domestic = (cad == "true");
-	crim.setDomestic(domestic);
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                crim.setIUCR(cad);
+                //cout << "iucr:" << cad << endl;
 
-	pos=pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	cad = cadena.substr (pos, (pos_bus - pos));
-	crim.setBeat(stoi(cad));
-	
-	pos=pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	cad = cadena.substr (pos, (pos_bus - pos));
-	crim.setDistrict(stoi(cad));
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                crim.setPrimaryType(cad);
+                //cout << "primaryType:" << cad << endl;
 
-	pos=pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	cad = cadena.substr (pos, (pos_bus - pos));
-	crim.setWard(stoi(cad));	
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                unsigned int pos_comm = cadena.find_first_of("\"", pos);
+                //cout << "thechar:" << cadena.substr(pos_bus, (pos_bus - (pos + 1))) << endl;
+                if (pos_bus > pos_comm) {
+                    pos_bus = cadena.find_first_of("\"", pos + 1);
+                    cad = cadena.substr(pos + 1, (pos_bus - (pos + 1)));
+                    crim.setDescription(cad);
+                    //cout << "IF" << endl;
+                    pos_bus++;
+                } else {
+                    //cout << "ELSE" << endl;
+                    cad = cadena.substr(pos, (pos_bus - pos));
+                    crim.setDescription(cad);
+                }
+                //cout << "description:" << cad << endl;
 
-	pos=pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	cad = cadena.substr (pos, (pos_bus - pos));
-	crim.setCommunityArea(stoi(cad));
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                pos_comm = cadena.find_first_of("\"", pos);
+                //cout << "thechar:" << cadena.substr(pos_bus, (pos_bus - (pos + 1))) << endl;
+                if (pos_bus > pos_comm) {
+                    pos_bus = cadena.find_first_of("\"", pos + 1);
+                    cad = cadena.substr(pos + 1, (pos_bus - (pos + 1)));
+                    crim.setLocationDescription(cad);
+                    //cout << "IF" << endl;
+                    pos_bus++;
+                } else {
+                    //cout << "ELSE" << endl;
+                    cad = cadena.substr(pos, (pos_bus - pos));
+                    crim.setLocationDescription(cad);
+                }
 
-	pos = pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	crim.setFBICode (cadena.substr(pos, (pos_bus - pos)));
+                //cout << "location_desc:" << cad << endl;
 
-	pos=pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	cad = cadena.substr (pos, (pos_bus - pos));
-	crim.setXCoord(stol(cad));
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                //cout << cad << endl;
+                bool arrest = (cad == "true");
+                crim.setArrest(arrest);
 
-	pos=pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	cad = cadena.substr (pos, (pos_bus - pos));
-	crim.setYCoord(stol(cad));
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                //cout << cad << endl;
+                bool domestic = (cad == "true");
+                crim.setDomestic(domestic);
 
-	pos=pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	cad = cadena.substr (pos, (pos_bus - pos));
-	crim.setYear(stoi(cad));
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                //cout << "beat:" << cad << endl;
+                if (cad != "") {
+                    crim.setBeat(stoi(cad));
+                }
 
-	pos = pos_bus+1;
-	pos_bus = cadena.find_first_of( ",", pos);
-	cad = cadena.substr (pos, (pos_bus - pos));
-	fecha fecha2(cad);
-	crim.setUpdatedOn(fecha2);
 
-	pos=pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	cad = cadena.substr (pos, (pos_bus - pos));
-	crim.setLatitude(stof(cad));
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                //cout << cad << endl;
+                if (cad != "") {
+                    crim.setDistrict(stoi(cad));
+                }
 
-	pos=pos_bus+1;
-	pos_bus = cadena.find_first_of(",", pos);
-	cad = cadena.substr (pos, (pos_bus - pos));
-	crim.setLongitude(stof(cad));
-	
 
-	C.insert (crim);
-         }
-     }
-    fe.close();
-    return true;
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                //cout << cad << endl;
+                if (cad != "") {
+                    crim.setWard(stoi(cad));
+                }
+
+
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                //cout << cad << endl;
+                if (cad != "") {
+                    crim.setCommunityArea(stoi(cad));
+                }
+
+
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                //cout << cad << endl;
+                crim.setFBICode(cad);
+
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                //cout << "xc:" << cad << endl;
+                if (cad != "") {
+                    crim.setXCoord(stol(cad));
+                }
+
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                //cout << "yc:" << cad << endl;
+                if (cad != "") {
+                    crim.setYCoord(stol(cad));
+
+                }
+
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                //cout << "y:" << cad << endl;
+                if (cad != "") {
+                    crim.setYear(stoi(cad));
+                }
+
+
+
+
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                //cout << "upd:" << cad << endl;
+                fecha fecha2(cad);
+                crim.setUpdatedOn(fecha2);
+                
+
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                //cout << "lat:" << cad << endl;
+                if (cad != "") {
+                    crim.setLatitude(stof(cad));
+                }
+
+
+
+                pos = pos_bus + 1;
+                pos_bus = cadena.find_first_of(",", pos);
+                cad = cadena.substr(pos, (pos_bus - pos));
+                //cout << "long:" << cad << endl;
+                if (cad != "") {
+                    crim.setLongitude(stof(cad));
+                }
+                
+                C.insert(crim);
+                i++;
+
+
+            }
+        }
+        fe.close();
+        return true;
     } // else
-  fe.close();
-  return false;
- }
+    fe.close();
+    return false;
+}
 
-int main()
-{
-    conjunto ChicagoDB;
+int main(int argc, char* argv[]) {
+    conjunto ChicagoDB, sameIUCR;
     crimen d;
     fecha f;
+    chrono::high_resolution_clock::time_point t1,t2;
+    chrono::duration<double> time_span;
+    
+    for(int i=0; i<50000; i=i+1000) {
+        t1 = chrono::high_resolution_clock::now();
+    
+        load(ChicagoDB, "crimenes.csv", i);
 
-    load(ChicagoDB, "crimenes100.csv");
+        t2 = chrono::high_resolution_clock::now();
+        
+        time_span = chrono::duration_cast<chrono::duration<double>>(t2 - t1);
+        cout << time_span.count() << endl;
+    }
+    
 
-    /* cout << ChicagoDB << endl; */
-
-   return 0;
+    return 0;
 }

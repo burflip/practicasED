@@ -20,7 +20,6 @@ bool load(conjunto & C, const string & s, int times) {
     string cadena;
     crimen crim;
 
-    cout << "Abrimos " << s << endl;
     fe.open(s.c_str(), ifstream::in);
     if (fe.fail()) {
         cerr << "Error al abrir el fichero " << s << endl;
@@ -233,21 +232,24 @@ bool load(conjunto & C, const string & s, int times) {
 }
 
 int main(int argc, char* argv[]) {
-    conjunto ChicagoDB, sameIUCR;
+    
     crimen d;
     fecha f;
     chrono::high_resolution_clock::time_point t1,t2;
     chrono::duration<double> time_span;
     
-    for(int i=0; i<50000; i=i+1000) {
+    for(int i=0; i<=100000; i=i+1000) {
+        conjunto ChicagoDB;
+        load(ChicagoDB, "crimenes.csv", i);
+        long int id = 10230986; //Elegimos una id al azar
         t1 = chrono::high_resolution_clock::now();
     
-        load(ChicagoDB, "crimenes.csv", i);
+        ChicagoDB.find(id);
 
         t2 = chrono::high_resolution_clock::now();
         
         time_span = chrono::duration_cast<chrono::duration<double>>(t2 - t1);
-        cout << time_span.count() << endl;
+        cout << i << " " << time_span.count() << endl;
     }
     
 

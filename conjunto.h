@@ -1,9 +1,3 @@
-/* 
- * conjunto.h
- * 
- * Copyright  (C) Juan F. Huete
- */
-
 #ifndef __CONJUNTO_H
 #define __CONJUNTO_H
 #include <string>
@@ -162,7 +156,11 @@ public:
        @return true si size()==0, false en caso contrario.
      */
     bool empty() const;
-    
+    /**
+     * Permite obtener de forma segura una posición del vector de un crimen concreto
+     * @param entero con la posición a obtener
+     * @return el crimen en concreto, o el crimen por defecto
+     */
     crimen getAt(int i) const;
 
 

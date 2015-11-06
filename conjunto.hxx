@@ -1,3 +1,6 @@
+#ifndef CONJUNTO_H
+#define CONJUNTO_H
+
 #include <string>
 #include <vector>
 #include <iostream> 
@@ -9,6 +12,7 @@ typedef crimen entrada;
 typedef unsigned int size_type;
 
 conjunto::conjunto() {
+    this->vc.clear();
 }
 
 conjunto::conjunto(const conjunto & d) {
@@ -23,9 +27,10 @@ pair <conjunto::entrada, bool> conjunto::find(const long int & id) const {
     pair < conjunto::entrada, bool> par;
     crimen c;
     par.second = false;
+    
 
     if (this->cheq_rep()) {
-        for (int i = 0; (unsigned) i < vc.size() && !par.second; i++) {
+        for (unsigned int i = 0; i < vc.size() && !par.second; i++) {
             if (vc.at(i).getID() == id) {
                 par.second = true;
                 c = vc.at(i);
@@ -39,7 +44,11 @@ pair <conjunto::entrada, bool> conjunto::find(const long int & id) const {
 }
 
 crimen conjunto::getAt(int i) const {
-    return this->vc.at(i);
+    crimen c;
+    if(vc.size() < (unsigned)i) {
+        c = vc.at(i);
+    }
+    return c;
 }
 
 
@@ -181,8 +190,8 @@ bool conjunto::empty() const {
 
 bool conjunto::cheq_rep() const {
     bool inv = false;
-
-    for (unsigned int i = 0; i < vc.size()-1; i++) {
+    int size= vc.size();
+    for (int i = 0; i < size-1; i++) {
         if ((vc.at(i).getID() < vc.at(i + 1).getID()) && vc.at(i).getID() > 0)
             inv = true;
     }
@@ -197,3 +206,6 @@ ostream & operator<<(ostream & sal, const conjunto & D) {
 
     return sal;
 }
+
+#endif	// CONJUNTO_H
+

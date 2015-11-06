@@ -1,3 +1,6 @@
+#ifndef FECHA_H
+#define FECHA_H
+
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -9,8 +12,6 @@ using namespace std;
 
  */
 fecha::fecha() {
-
-    // @todo implementar esta funcion
     year = 2000;
     mon = 1;
     mday = 1;
@@ -20,7 +21,6 @@ fecha::fecha() {
 }
 
 fecha::fecha(const string & x) {
-    // @todo implementar esta funcion
     stringToFecha(x);
 }
 
@@ -344,4 +344,7 @@ ostream& operator<<(ostream& os, const fecha & f) {
     os << f.toString();
     return os;
 }
+
+
+#endif	// FECHA_H
 

@@ -1,276 +1,347 @@
-/** @brief fichero de implementacion de la clase fecha
-
-*/
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <iomanip>
-#include <ctime>
-
+#include "fecha.h"
 using namespace std;
 
-/**
- * @brief      El constructor por defecto. Genera una instancia de fecha con la fecha del momento en el que se crea
+/** @brief fichero de implementacion de la clase fecha
+
  */
-fecha::fecha()
-{
-	time_t t = time(0);
-	struct tm * now = localtime( & t );
+fecha::fecha() {
 
-	this->mon = (now->tm_mon + 1);
-	this->mday = now->tm_mday;
-	this->year = (now->tm_year + 1900);
-	this->hour = now->tm_hour;
-	this->min = now->tm_min;
-	this->sec = now->tm_sec;
+    // @todo implementar esta funcion
+    year = 2000;
+    mon = 1;
+    mday = 1;
+    hour = 0;
+    min = 0;
+    sec = 0;
 }
 
-/**
- * @brief      Convierte el objeto fecha en una String con el formato MM/DD/YYYY HH:MM:SS AM
- *
- * @return     Un String con el formato MM/DD/YYYY HH:MM:SS AM
- * 
- * \code Uso
- * fecha * f = new fecha();
- * fecha * f2 = new fecha(f->toString());
- * cout << f2->toString() << endl;
- * \endcode
- */
-string fecha::toString( ) const
-{
-	std::ostringstream ss;
-	ss << std::setw(2) << std::setfill('0') << this->mon << "/";
-	ss << std::setw(2) << std::setfill('0') << this->mday << "/";
-	ss << std::setw(4) << this->year << " ";
-	bool am_pm = (this->hour > 12);
-	if(am_pm) {
-		ss << std::setw(2) << std::setfill('0') << (this->hour-12) << ":";
-	}
-
-	ss << std::setw(2) << std::setfill('0') << this->min << ":";
-	ss << std::setw(2) << std::setfill('0') << this->sec << " ";
-	if(am_pm){
-		ss << "PM";
-	} else {
-		ss << "AM";
-	}
-	
-	return ss.str();
+fecha::fecha(const string & x) {
+    // @todo implementar esta funcion
+    stringToFecha(x);
 }
 
-/**
- * @brief      Crea una fecha a partir de una String con el formato MM/DD/YYYY HH:MM:SS AM
- *
- * @param  s     String con el formato MM/DD/YYYY HH:MM:SS AM
- * \code Uso
- * fecha * f = new fecha();
- * fecha * f2 = new fecha(f->toString());
- * cout << f2->toString() << endl;
- * \endcode
- */
-fecha::fecha (const string & s)
-{
-	parseString(s);
+int fecha::getYear() {
+    return year;
 }
 
-/**
- * @brief      Introduce los valores de una String con el formato MM/DD/YYYY HH:MM:SS AM en el objeto actual
- *
- * @param  s     String con el formato MM/DD/YYYY HH:MM:SS AM
- */
-void fecha::parseString(const string & s)
-{
-	this->mon = stoi(s.substr(0,2));
-	this->mday = stoi(s.substr(3,2));
-	this->year = stoi(s.substr(6,4));
-	this->hour = stoi(s.substr(11,2));
-	this->min = stoi(s.substr(14,2));
-	this->sec = stoi(s.substr(17,2));
-	if(s.substr(20,2) == "PM") {
-		this->hour += 12;	
-	}
+int fecha::getMonth() {
+    return mon;
 }
 
-/**
- * @brief      Sobrecarga el operador << de ostream para usarlo con la clase fecha;
- *
- * @param os     String con el formato MM/DD/YYYY HH:MM:SS AM
- * @param f     String con el formato MM/DD/YYYY HH:MM:SS AM
- * 
- * \code Uso
- * fecha f;
- * f = "10/10/2015 12:00:00 AM"
- * cout << f << endl;
- * \endcode
- */
-ostream& operator<< ( ostream& os, const fecha & f)
-{
-	os << f.toString() ;
-	return os;
+int fecha::getDay() {
+    return mday;
 }
 
-/**
- * @brief      Sobrecarga el operador << de ostream para usarlo con un puntero de un objeto de la clase fecha;
- *
- * @param os     String con el formato MM/DD/YYYY HH:MM:SS AM
- * @param f     String con el formato MM/DD/YYYY HH:MM:SS AM
- * 
- * \code Uso
- * fecha * f = new fecha();
- * cout << f << endl;
- * \endcode
- */
-ostream& operator<< ( ostream& os, const fecha * f)
-{
-	os << f->toString() ;
-	return os;
+int fecha::getHour() {
+    return hour;
 }
 
-
-fecha & fecha::operator=(const string & s)
-{
-	parseString(s);
-	return *this;
+int fecha::getMinute() {
+    return min;
 }
 
-fecha & fecha::operator=(const fecha & f)
-{
-	parseString(f.toString());
-	return *this;
+int fecha::getSec() {
+    return sec;
 }
 
+string fecha::toString() const {
+    ostringstream ss;
+    if (this->mon <= 9)
+        ss << "0" << this->mon << "/";
 
+    else
+        ss << this->mon << "/";
+
+    if (this->mday <= 9)
+        ss << "0" << this->mday << "/";
+    else
+        ss << this->mday << "/";
+
+
+    ss << this->year << " ";
+
+    bool am_pm = (this->hour > 12);
+
+    if (am_pm) {
+        if ((this->hour - 12) <= 9)
+            ss << "0" << (this->hour - 12) << ":";
+        else
+            ss << (this->hour - 12) << ":";
+    }
+    else {
+        if (this->hour <= 9)
+            ss << "0" << (this->hour) << ":";
+        else
+            ss << (this->hour) << ":";
+    }
+
+    if (this->min <= 9)
+        ss << "0" << this->min << ":";
+    else
+        ss << this->min << ":";
+
+
+    if (this->sec <= 9)
+        ss << "0" << this->sec << " ";
+    else
+        ss << this->sec << " ";
+    if (am_pm) {
+        ss << "PM";
+    } else {
+        ss << "AM";
+    }
+
+    return ss.str();
+
+}
+
+void fecha::stringToFecha(const string & x) {
+    size_t pos = 0;
+    size_t pos_bus = x.find_first_of("/");
+    string month = x.substr(pos, (pos_bus - pos));
+    this->mon = stoi(month);
+
+    pos = pos_bus + 1;
+    pos_bus = x.find_first_of("/", pos);
+    string day = x.substr(pos, (pos_bus - pos));
+    this->mday = stoi(day);
+
+    pos = pos_bus + 1;
+    pos_bus = x.find_first_of(" ", pos);
+    string year1 = x.substr(pos, (pos_bus - pos));
+    this->year = stoi(year1);
+
+    pos = pos_bus + 1;
+    pos_bus = x.find_first_of(":", pos);
+    string hour1 = x.substr(pos, (pos_bus - pos));
+    this->hour = stoi(hour1);
+
+    pos = pos_bus + 1;
+    pos_bus = x.find_first_of(":", pos);
+    string minut = x.substr(pos, (pos_bus - pos));
+    this->min = stoi(minut);
+
+    pos = pos_bus + 1;
+    pos_bus = x.find_first_of(" ", pos);
+    string secnd = x.substr(pos, (pos_bus - pos));
+    this->sec = stoi(secnd);
+
+    pos = pos_bus + 1;
+    pos_bus = x.front();
+    string moment = x.substr(pos, pos_bus - pos);
+
+    if (moment == "PM") {
+        this->hour += 12;
+    }
+}
+
+fecha & fecha::operator=(const fecha & f) {
+
+    this->year = f.year;
+    this->mon = f.mon;
+    this->mday = f.mday;
+    this->hour = f.hour;
+    this->min = f.min;
+    this->sec = f.sec;
+    return *this;
+}
+
+fecha & fecha::operator=(const string & f) {
+    stringToFecha(f);
+    return *this;
+}
 
 bool fecha::operator==(const fecha & f) const {
-	return (this->toString() == f.toString());
+
+    return ((this->year == f.year) && (this->mon == f.mon) && (this->mday == f.mday) && (this->hour == f.hour) &&
+            (this->min == f.min) && (this->sec == f.sec));
+
 }
 
 bool fecha::operator<(const fecha & f)const {
-	bool igual = false;
+    bool menor;
 
-	if(this->getYear() < f.getYear()){
-		return true;
-	} else if(this->getYear() == f.getYear()) {
-		igual = true;
-	}
+    if (this->year < f.year)
+        menor = true;
+    else {
+        if (this->year > f.year)
+            menor = false;
+        else {
+            if (this->mon < f.mon)
+                menor = true;
+            else {
+                if (this->mon > f.mon)
+                    menor = false;
+                else {
+                    if (this->mday < f.mday)
+                        menor = true;
+                    else {
+                        if (this->mday > f.mday)
+                            menor = false;
+                        else {
+                            if (this->hour < f.hour)
+                                menor = true;
+                            else {
+                                if (this->hour > f.hour)
+                                    menor = false;
+                                else {
+                                    if (this->min < f.min)
+                                        menor = true;
+                                    else {
+                                        if (this->min > f.min)
+                                            menor = false;
+                                        else {
+                                            if (this->sec < f.sec)
+                                                menor = true;
+                                            else
+                                                menor = false;
 
-	if(this->getMon() < f.getMon() && igual){
-		return true;
-	} else if(this->getMon() > f.getMon()) {
-		igual = false;
-	}
+                                        }
+                                    }
 
-	if(this->getDay() < f.getDay() && igual){
-		return true;
-	} else if(this->getDay() > f.getDay()) {
-		igual = false;
-	}
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	if(this->getHour() < f.getHour() && igual){
-		return true;
-	} else if(this->getHour() > f.getHour()) {
-		igual = false;
-	}
-
-	if(this->getMin() < f.getMin() && igual){
-		return true;
-	} else if(this->getMin() > f.getMin()) {
-		igual = false;
-	}
-
-	if(this->getSec() < f.getSec() && igual){
-		return true;
-	} else if(this->getSec() > f.getSec()) {
-		igual = false;
-	}
-	
-	return false;
-	
+    return menor;
 }
 
-bool fecha::operator>(const fecha & f) const
-{
-	fecha f_temp1, f_temp2;
-	f_temp1 = this->toString();
-	f_temp2 = f.toString();
-	return !(f_temp1 < f_temp2 || f_temp1 == f_temp2);
+bool fecha::operator>(const fecha & f) const {
+    bool mayor;
+
+    if (this->year > f.year)
+        mayor = true;
+    else {
+        if (this->year < f.year)
+            mayor = false;
+        else {
+            if (this->mon > f.mon)
+                mayor = true;
+            else {
+                if (this->mon < f.mon)
+                    mayor = false;
+                else {
+                    if (this->mday > f.mday)
+                        mayor = true;
+                    else {
+                        if (this->mday < f.mday)
+                            mayor = false;
+                        else {
+                            if (this->hour > f.hour)
+                                mayor = true;
+                            else {
+                                if (this->hour < f.hour)
+                                    mayor = false;
+                                else {
+                                    if (this->min > f.min)
+                                        mayor = true;
+                                    else {
+                                        if (this->min < f.min)
+                                            mayor = false;
+                                        else {
+                                            if (this->sec > f.sec)
+                                                mayor = true;
+                                            else
+                                                mayor = false;
+                                        }
+                                    }
+
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return mayor;
 }
 
-bool fecha::operator<=(const fecha & f) const 
-{
-	fecha f_temp1, f_temp2;
-	f_temp1 = this->toString();
-	f_temp2 = f.toString();
-	return (f_temp1 < f_temp2 || f_temp1 == f_temp2);
+bool fecha::operator<=(const fecha & f)const {
+    bool menor_igual;
+
+    if (this->year > f.year)
+        menor_igual = false;
+    else {
+        if (this->mon < f.mon)
+            menor_igual = false;
+        else {
+            if (this->mday > f.mday)
+                menor_igual = false;
+            else {
+                if (this->hour > f.hour)
+                    menor_igual = false;
+                else {
+                    if (this->min > f.min)
+                        menor_igual = false;
+                    else {
+                        if (this->sec > f.sec)
+                            menor_igual = false;
+                        else
+                            menor_igual = true;
+                    }
+                }
+            }
+
+        }
+    }
+
+    return menor_igual;
 }
 
-bool fecha::operator>=(const fecha & f) const 
-{
-	fecha f_temp1, f_temp2;
-	f_temp1 = this->toString();
-	f_temp2 = f.toString();
-	return !(f_temp1 < f_temp2);
+bool fecha::operator>=(const fecha & f) const {
+    bool mayor_igual;
+
+    if (this->year < f.year)
+        mayor_igual = false;
+    else {
+        if (this->mon < f.mon)
+            mayor_igual = false;
+        else {
+            if (this->mday > f.mday)
+                mayor_igual = false;
+            else {
+                if (this->hour > f.hour)
+                    mayor_igual = false;
+                else {
+                    if (this->min > f.min)
+                        mayor_igual = false;
+                    else {
+                        if (this->sec > f.sec)
+                            mayor_igual = false;
+                        else
+                            mayor_igual = true;
+                    }
+                }
+            }
+
+        }
+    }
+    return mayor_igual;
 }
 
-bool fecha::operator!=(const fecha & f) const 
-{
-	fecha f_temp1, f_temp2;
-	f_temp1 = this->toString();
-	f_temp2 = f.toString();
-	return !(f_temp1 == f_temp2);
+bool fecha::operator!=(const fecha & f) const {
+    return (
+            (this->year != f.year) || (this->mon != f.mon) 
+            || (this->mday != f.mday) || (this->hour != f.hour) 
+            || (this->min != f.min) || (this->sec != f.sec)
+            );
 }
 
-/**
- * @brief      Obtiene los segundos
- *
- * @return     Un int con los segundos
- */
-int fecha::getSec() const
-{
-	return this->sec;
+ostream& operator<<(ostream& os, const fecha & f) {
+
+    os << f.toString();
+    return os;
 }
-/**
- * @brief      Obtiene los minutos
- *
- * @return     Un int con los minutos
- */
-int fecha::getMin() const
-{
-	return this->min;
-}
-/**
- * @brief      Obtiene las horas
- *
- * @return     Un int con las horas
- */
-int fecha::getHour() const
-{
-	return this->hour;
-}
-/**
- * @brief      Obtiene los días
- *
- * @return     Un int con los días
- */
-int fecha::getDay() const
-{
-	return this->mday;
-}
-/**
- * @brief      Obtiene los meses
- *
- * @return     Un int con los meses
- */
-int fecha::getMon() const
-{
-	return this->mon;
-}
-/**
- * @brief      Obtiene los años
- *
- * @return     Un int con los años
- */
-int fecha::getYear() const
-{
-	return this->year;
-}
+

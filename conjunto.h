@@ -307,13 +307,13 @@ Busca la entrada con id en el conjunto (o e.getID() en el segundo caso) y si la 
 	@param[in] descr descripcion de buscamos
 	@return un iterador que apunta a la primera posicion, el emparejamiento se hace teniendo en cuenta que descr debe ser una subcadena de la descripción del delito.
 	*/
-	description_iterator  dbegin(const string & descr) const;
+	description_iterator  dbegin(const string & descr);
 
 	 /**   @brief devolver fin del conjunto
 	 
 	@return un iterador que apunta a la posicion final
 	*/
-	description_iterator  dend( ) const;
+	description_iterator  dend( );
 
 	/** @brief class description_iterator
 	 * forward iterador constante sobre el diccionario, Lectura 
@@ -325,6 +325,8 @@ Busca la entrada con id en el conjunto (o e.getID() en el segundo caso) y si la 
 	  description_iterator();
 	  description_iterator(const description_iterator & it);
          
+      void setDescr(const string & descr);   
+      
 	  const conjunto::entrada & operator*() const;
 	  description_iterator operator++( int );
 	  description_iterator & operator++();
@@ -332,20 +334,25 @@ Busca la entrada con id en el conjunto (o e.getID() en el segundo caso) y si la 
       description_iterator & operator--();
 	  bool operator==(const description_iterator & it);
 	  bool operator!=(const description_iterator & it);
+	  description_iterator & operator=(const description_iterator & it);
 	private:
-	  string descr;  // la descripcion se asigna en con el metodo dbegin
+	  string descr;  // la descripcion se asigna con el metodo dbegin
 	  vector<entrada>::iterator d_itv;
 	  friend class conjunto;
-	  
+	  conjunto * punt_desc;
 	};
 
-	const_description_iterator cdbegin();
+	const_description_iterator cdbegin(const string & descr);
+	
 	const_description_iterator cdend();
 
 	class const_description_iterator {
 	public:
 	  const_description_iterator();
+	  const_description_iterator (const iterator & it);
 	  const_description_iterator(const const_description_iterator & it);
+         
+      void setDescr(const string & descr);   
          
 	  const conjunto::entrada & operator*() const;
 	  const_description_iterator operator++( int );
@@ -354,10 +361,12 @@ Busca la entrada con id en el conjunto (o e.getID() en el segundo caso) y si la 
       const_description_iterator & operator--();
 	  bool operator==(const const_description_iterator & it);
 	  bool operator!=(const const_description_iterator & it);
+	  const_description_iterator & operator=(const const_description_iterator & it);
 	private:
 	  string descr;  // la descripcion se asigna en con el metodo dbegin
 	  vector<entrada>::const_iterator cd_itv;
 	  friend class conjunto;
+	  conjunto * punt_cdesc;
 	  
 	};
 		

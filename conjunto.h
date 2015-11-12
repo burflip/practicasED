@@ -78,6 +78,9 @@ public:
 	*/
 	conjunto (const conjunto & d);
 		
+		
+		
+	crimen getAt(int i) const;	
 	/** @brief busca un crimen en el conjunto
 	@param id identificador del crimen  buscar
 	@return Si existe una entrada en el conjunto devuelve un iterador a lo posicion donde está el elemento. Si  no se encuentra devuelve end()
@@ -89,7 +92,8 @@ public:
 	else cout << "No esta";
 	\endcode
 	*/
-	//conjunto::iterator  find( const long int & id) const;
+	
+	conjunto::iterator  find( const long int & id);
 	/** @brief busca un crimen en el conjunto
 	@param id identificador del crimen  buscar
 	@return Si existe una entrada en el conjunto devuelve un iterador a lo posicion donde está el elemento. Si  no se encuentra devuelve end()
@@ -101,8 +105,10 @@ public:
 	else cout << "No esta";
 	\endcode
 	*/
-	// conjunto::const_iterator  find( const long int & id) const;
+	 //conjunto::const_iterator  find( const long int & id)const;
 
+
+	string zeroFill(const string & s, unsigned int n) const;
 	/** @brief busca los crimenes con el mismo codigo IUCR
 	@param icur identificador del crimen  buscar
 	@return Devuelve un  conjunto con todos los crimenes con el codigo IUCR. Si no existe ninguno devuelve el conjunto vacio.
@@ -200,6 +206,7 @@ Busca la entrada con id en el conjunto (o e.getID() en el segundo caso) y si la 
        
        const conjunto::entrada & operator*() const;
        
+	   iterator & operator+(int i);
        iterator operator++( int );
        iterator & operator++();
        iterator operator--(int);
@@ -238,6 +245,8 @@ Busca la entrada con id en el conjunto (o e.getID() en el segundo caso) y si la 
           */
 	  const_iterator(const iterator & it);
 	  const conjunto::entrada & operator*() const;
+	  
+	  const_iterator & operator+(int i);
 	  const_iterator operator++( int );
 	  const_iterator & operator++();
  	  const_iterator operator--(int);

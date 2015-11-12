@@ -17,6 +17,215 @@ conjunto::conjunto(){
 	
 }
 
+conjunto::conjunto(const conjunto & d) {
+    this->vc.clear();
+    for (unsigned int i = 0; i < d.size(); i++) {
+        this->vc.push_back(d.getAt(i));
+    }
+}
+
+
+crimen conjunto::getAt(int i) const {
+    crimen c;
+    if(vc.size() < (unsigned)i) {
+        c = vc.at(i);
+    }
+    return c;
+}
+
+
+conjunto::iterator conjunto::find(const long int & id) {
+    
+    conjunto::iterator it;
+
+    if (this->cheq_rep()) {
+        for (unsigned int i = 0; i < vc.size(); i++) {
+            if (vc.at(i).getID() == id) {
+                it = (this->begin())+(i);
+			}
+            else
+				it = this->end();
+        }
+		
+    }
+    
+    return it;
+}
+
+/*conjunto::const_iterator conjunto::find( const long int & id)const{
+	    
+    conjunto::const_iterator it;
+
+
+    if (this->cheq_rep()) {
+        for (unsigned int i = 0; i < vc.size(); i++) {
+            if (vc.at(i).getID() == id) {
+                it = (this->begin())+i;
+			}
+            else
+				it = this->end();
+        }
+		
+    }
+    
+    return it;
+} 
+*/
+
+string conjunto::zeroFill(const string & s, unsigned int n) const
+{
+    string filled = s;
+    int diff = n - s.size();
+    for(int i = 0; i<diff; i++){
+        filled = "0"+filled;
+    }
+    return filled;
+} 
+ 
+conjunto conjunto::findIUCR(const string & iucr) const {
+    conjunto c;
+    string zfIUCR = zeroFill(iucr,4);
+    for (unsigned int i = 0; i < this->vc.size(); i++) {
+        int j = 0;
+        if (vc.at(i).getIUCR() == zfIUCR) {
+            c.insert(vc.at(i));
+            j++;
+        }
+
+    }
+    cout << c << endl;
+    return c;
+}
+
+conjunto conjunto::findDESCR(const string & descr) const {
+    conjunto c;
+
+    for (unsigned int i = 0; i < this->vc.size(); i++) {
+        int j = 0;
+        if (this->getAt(i).getDescription() == descr) {
+            c.insert(vc.at(i));
+            j++;
+        }
+    }
+    
+    
+    return c;
+
+}
+
+bool conjunto::insert(const conjunto::entrada & e) {
+
+    bool insertado = false;
+    conjunto::iterator it;
+    it.itv = this->vc.begin();
+    
+    conjunto::iterator it_final;
+    it_final.itv = vc.end();
+
+	conjunto::iterator it_find;
+	it_find = this->find(e.getID());
+	
+	
+     if (this->vc.empty()) {
+        this->vc.push_back(e);
+        insertado = true;
+     } 
+     else {
+        if (it_find == it_final) {
+
+            while (it != it_final && !insertado) {
+                if ((*it).getID() > e.getID()) {
+                    this->vc.insert((it.itv), e);
+                    insertado = true;
+                } else
+                    it++;
+            }
+             
+
+        }
+		if (!insertado) {
+            this->vc.push_back(e);
+            insertado = true;
+			}
+
+    }
+
+    return insertado;
+}
+
+bool conjunto::erase(const long int & id) {
+    bool borrado = false;
+
+
+    for (unsigned int i = 0; i < vc.size() && !borrado; i++) {
+        if (vc.at(i).getID() == id) {
+            vc.erase(vc.begin() + i);
+            borrado = true;
+        }
+    }
+
+    return borrado;
+
+}
+
+bool conjunto::erase(const conjunto::entrada & e) {
+    bool borrado;
+
+    for (unsigned int i = 0; i < vc.size() && !borrado; i++) {
+        if (vc.at(i).getID() == e.getID()) {
+            vc.erase(vc.begin() + i);
+            borrado = true;
+        }
+    }
+
+    return borrado;
+
+
+}
+
+conjunto & conjunto::operator=(const conjunto & org) {
+    this->vc.clear();
+    
+    for (unsigned int i = 0; i < org.size(); i++){
+        this->vc.push_back(org.getAt(i));
+    }
+        
+
+    return *this;
+}
+
+unsigned int conjunto::size() const {
+    return vc.size();
+}
+
+bool conjunto::empty() const {
+    return this->vc.size()==0;
+}
+/** @brief Chequea el Invariante de la representacion 
+      @return true si el invariante es correcto, falso en caso contrario
+ */
+
+// Devuelve si los ID son todos menores o iguales y que son mayores que 0.
+
+bool conjunto::cheq_rep() const {
+    bool inv = false;
+    int size= vc.size();
+    for (int i = 0; i < size-1; i++) {
+        if ((vc.at(i).getID() < vc.at(i + 1).getID()) && vc.at(i).getID() > 0)
+            inv = true;
+    }
+
+    return inv;
+
+}
+
+ostream & operator<<(ostream & sal, const conjunto & D) {
+    for (unsigned int i = 0; i < D.size(); i++)
+        sal << D.getAt(i) << endl;
+
+    return sal;
+}
+
 conjunto::iterator conjunto::begin(){
 conjunto::iterator sal;
 	sal.itv = vc.begin();
@@ -48,11 +257,20 @@ const conjunto::entrada & conjunto::iterator::operator*() const
 	return *(this->itv);
 }
 
+conjunto::iterator & conjunto::iterator::operator+(int i)
+{
+	conjunto::iterator aux;
+	for (int j=0; j < 0; j++)
+		(this->itv)++;
+		
+	aux.itv = this->itv;	
+	return aux;
+}
+
 conjunto::iterator & conjunto::iterator::operator = (const conjunto::iterator & i)
 {
-	conjunto::iterator iterador;
-	iterador.itv = i.itv;
-	return iterador;
+	this->itv = i.itv;
+	return *this;
 }
 
 conjunto::iterator conjunto::iterator::operator++(int)
@@ -135,6 +353,16 @@ conjunto::const_iterator::const_iterator(const const_iterator & i)
 const conjunto::entrada & conjunto::const_iterator::operator*() const
 {
 	return *(this->c_itv);
+}
+
+conjunto::const_iterator & conjunto::const_iterator::operator+(int i)
+{
+	conjunto::const_iterator aux;
+	for (int j=0; j < 0; j++)
+		(this->c_itv)++;
+		
+	aux.c_itv = this->c_itv;	
+	return aux;
 }
 
 conjunto::const_iterator & conjunto::const_iterator::operator = (const conjunto::const_iterator & i)
@@ -505,8 +733,8 @@ conjunto::description_iterator conjunto::description_iterator::operator++(int)
 	
 	do {
 		(this->d_itv)++;
-	}while (this->d_itv!=(*this).punt_desc->vc.end() ||
-					((*this->d_itv).getDescription() == descr));
+	}while (this->d_itv!=(*this).punt_desc->vc.end() &&
+					((*this->d_itv).getDescription() != descr));
 
 	return antiguo;
 }
@@ -516,7 +744,7 @@ conjunto::description_iterator & conjunto::description_iterator::operator ++()
 	conjunto::description_iterator aux;
 	do {
 		(aux.d_itv)++;
-	} while (aux.d_itv!=(*this).punt_desc->vc.end() || ((*aux.d_itv).getDescription() == descr));
+	} while (aux.d_itv!=(*this).punt_desc->vc.end() && ((*aux.d_itv).getDescription() != descr));
 	
 	return aux;
 }
@@ -531,8 +759,8 @@ conjunto::description_iterator conjunto::description_iterator::operator--(int)
 	
 	do {
 		(this->d_itv)--;
-	}while (this->d_itv!=(*this).punt_desc->vc.begin() ||
-					((*this->d_itv).getDescription() == descr));
+	}while (this->d_itv!=(*this).punt_desc->vc.begin() &&
+					((*this->d_itv).getDescription() != descr));
 
 	return antiguo;
 }
@@ -542,7 +770,7 @@ conjunto::description_iterator & conjunto::description_iterator::operator --()
 	conjunto::description_iterator aux;
 	do {
 		(aux.d_itv)--;
-	}while (aux.d_itv!=(*this).punt_desc->vc.begin() || ((*aux.d_itv).getDescription() == descr));
+	}while (aux.d_itv!=(*this).punt_desc->vc.begin() && ((*aux.d_itv).getDescription() != descr));
 	
 	return aux;
 }
@@ -568,7 +796,7 @@ conjunto::const_description_iterator conjunto::cdbegin(const string & descr)
 	
 	bool encontrado = false;
 	while (sal.cd_itv != vc.end() && !encontrado){
-		if ((*sal.cd_itv).getDescription() == descr)
+		if ((*sal.cd_itv).getDescription() != descr)
 			encontrado = true;
 		else
 			sal.cd_itv++;
@@ -621,6 +849,7 @@ const conjunto::entrada & conjunto::const_description_iterator::operator*() cons
 	return *(this->cd_itv);
 }
 
+
 conjunto::const_description_iterator & conjunto::const_description_iterator::operator=(const conjunto::const_description_iterator & i)
 {
 	conjunto::const_description_iterator iterador;
@@ -638,8 +867,8 @@ conjunto::const_description_iterator conjunto::const_description_iterator::opera
 	
 	do {
 		(this->cd_itv)++;
-	}while (this->cd_itv!=(*this).punt_cdesc->vc.end() ||
-					((*this->cd_itv).getDescription() == descr));
+	}while (this->cd_itv!=(*this).punt_cdesc->vc.end() &&
+					((*this->cd_itv).getDescription() != descr));
 
 	return antiguo;
 }

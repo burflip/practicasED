@@ -259,12 +259,10 @@ const conjunto::entrada & conjunto::iterator::operator*() const
 
 conjunto::iterator & conjunto::iterator::operator+(int i)
 {
-	conjunto::iterator aux;
-	for (int j=0; j < 0; j++)
+	for (int j=0; j < i; j++)
 		(this->itv)++;
 		
-	aux.itv = this->itv;	
-	return aux;
+	return *this;
 }
 
 conjunto::iterator & conjunto::iterator::operator = (const conjunto::iterator & i)
@@ -285,11 +283,11 @@ conjunto::iterator conjunto::iterator::operator++(int)
 
 conjunto::iterator & conjunto::iterator::operator ++()
 {
-	conjunto::iterator aux;
+	
 	if (this->itv!=(*this).puntero->vc.end())
-		aux.itv++;
+		this->itv++;
 		
-	return aux;
+	return *this;
 }
 
 conjunto::iterator conjunto::iterator::operator--(int)
@@ -304,11 +302,10 @@ conjunto::iterator conjunto::iterator::operator--(int)
 
 conjunto::iterator & conjunto::iterator::operator --()
 {
-	conjunto::iterator aux;
 	if (this->itv!=(*this).puntero->vc.begin())
-		aux.itv--;
+		this->itv--;
 		
-	return aux;
+	return *this;
 }
 
 bool conjunto::iterator::operator == (const conjunto::iterator & it)
@@ -357,19 +354,16 @@ const conjunto::entrada & conjunto::const_iterator::operator*() const
 
 conjunto::const_iterator & conjunto::const_iterator::operator+(int i)
 {
-	conjunto::const_iterator aux;
-	for (int j=0; j < 0; j++)
+	for (int j=0; j < i; j++)
 		(this->c_itv)++;
-		
-	aux.c_itv = this->c_itv;	
-	return aux;
+			
+	return *this;
 }
 
 conjunto::const_iterator & conjunto::const_iterator::operator = (const conjunto::const_iterator & i)
 {
-	conjunto::const_iterator iterador;
-	iterador.c_itv = i.c_itv;
-	return iterador;
+	this->c_itv = i.c_itv;
+	return *this;
 }
 
 conjunto::const_iterator conjunto::const_iterator::operator++(int)
@@ -384,11 +378,10 @@ conjunto::const_iterator conjunto::const_iterator::operator++(int)
 
 conjunto::const_iterator & conjunto::const_iterator::operator ++()
 {
-	conjunto::const_iterator aux;
 	if (this->c_itv!=(*this).punt_const->vc.end())
-		aux.c_itv++;
+		this->c_itv++;
 		
-	return aux;
+	return *this;
 }
 
 conjunto::const_iterator conjunto::const_iterator::operator--(int)
@@ -403,11 +396,10 @@ conjunto::const_iterator conjunto::const_iterator::operator--(int)
 
 conjunto::const_iterator & conjunto::const_iterator::operator --()
 {
-	conjunto::const_iterator aux;
 	if (this->c_itv!=(*this).punt_const->vc.begin())
-		aux.c_itv--;
+		this->c_itv--;
 		
-	return aux;
+	return *this;
 }
 
 bool conjunto::const_iterator::operator == (const conjunto::const_iterator & it)
@@ -443,15 +435,7 @@ conjunto::arrest_iterator conjunto::aend()
 	
 	sal.a_itv = vc.end();
 	
-	bool encontrado = false;
-	while (sal.a_itv != vc.begin() && !encontrado){
-		if ((*sal.a_itv).getArrest() == true)
-			encontrado = true;
-		else
-			sal.a_itv--;
-	}
-	
-        return sal;
+	return sal;
 }
 // ARREST ITERATOR ----------------------------------------------------------------
 
@@ -471,9 +455,8 @@ const conjunto::entrada & conjunto::arrest_iterator::operator*() const
 
 conjunto::arrest_iterator & conjunto::arrest_iterator::operator = (const conjunto::arrest_iterator & i)
 {
-	conjunto::arrest_iterator iterador;
-	iterador.a_itv = i.a_itv;
-	return iterador;
+	this->a_itv = i.a_itv;
+	return *this;
 }
 
 conjunto::arrest_iterator conjunto::arrest_iterator::operator++(int)
@@ -493,12 +476,11 @@ conjunto::arrest_iterator conjunto::arrest_iterator::operator++(int)
 
 conjunto::arrest_iterator & conjunto::arrest_iterator::operator ++()
 {
-	conjunto::arrest_iterator aux;
 	do {
-		(aux.a_itv)++;
-	} while (aux.a_itv!=(*this).punt_arr->vc.end() || ((*aux.a_itv).getArrest() == false));
+		(this->a_itv)++;
+	} while (this->a_itv!=(*this).punt_arr->vc.end() || ((*this->a_itv).getArrest() == false));
 	
-	return aux;
+	return *this;
 }
 
 conjunto::arrest_iterator conjunto::arrest_iterator::operator--(int)
@@ -518,12 +500,11 @@ conjunto::arrest_iterator conjunto::arrest_iterator::operator--(int)
 
 conjunto::arrest_iterator & conjunto::arrest_iterator::operator --()
 {
-	conjunto::arrest_iterator aux;
 	do {
-		(aux.a_itv)--;
-	}while (aux.a_itv!=(*this).punt_arr->vc.begin() || ((*aux.a_itv).getArrest() == false));
+		(this->a_itv)--;
+	}while (this->a_itv!=(*this).punt_arr->vc.begin() || ((*this->a_itv).getArrest() == false));
 	
-	return aux;
+	return *this;
 }
 
 bool conjunto::arrest_iterator::operator == (const conjunto::arrest_iterator & it)
@@ -560,14 +541,6 @@ conjunto::const_arrest_iterator conjunto::caend()
 	
 	sal.ca_itv = vc.end();
 	
-	bool encontrado = false;
-	while (sal.ca_itv != vc.begin() && !encontrado){
-		if ((*sal.ca_itv).getArrest() == true)
-			encontrado = true;
-		else
-			sal.ca_itv--;
-	}
-	
         return sal;
 }
 // CONST ARREST ITERATOR ----------------------------------------------------------------
@@ -593,9 +566,9 @@ const conjunto::entrada & conjunto::const_arrest_iterator::operator*() const
 
 conjunto::const_arrest_iterator & conjunto::const_arrest_iterator::operator = (const conjunto::const_arrest_iterator & i)
 {
-	conjunto::const_arrest_iterator iterador;
-	iterador.ca_itv = i.ca_itv;
-	return iterador;
+	
+	this->ca_itv = i.ca_itv;
+	return *this;
 }
 
 conjunto::const_arrest_iterator conjunto::const_arrest_iterator::operator++(int)
@@ -615,12 +588,11 @@ conjunto::const_arrest_iterator conjunto::const_arrest_iterator::operator++(int)
 
 conjunto::const_arrest_iterator & conjunto::const_arrest_iterator::operator ++()
 {
-	conjunto::const_arrest_iterator aux;
 	do {
-		(aux.ca_itv)++;
-	} while (aux.ca_itv!=(*this).punt_carr->vc.end() || ((*aux.ca_itv).getArrest() == false));
+		(this->ca_itv)++;
+	} while (this->ca_itv!=(*this).punt_carr->vc.end() || ((*this->ca_itv).getArrest() == false));
 	
-	return aux;
+	return *this;
 }
 
 conjunto::const_arrest_iterator conjunto::const_arrest_iterator::operator--(int)
@@ -640,12 +612,11 @@ conjunto::const_arrest_iterator conjunto::const_arrest_iterator::operator--(int)
 
 conjunto::const_arrest_iterator & conjunto::const_arrest_iterator::operator --()
 {
-	conjunto::const_arrest_iterator aux;
 	do {
-		(aux.ca_itv)--;
-	}while (aux.ca_itv!=(*this).punt_carr->vc.begin() || ((*aux.ca_itv).getArrest() == false));
+		(this->ca_itv)--;
+	}while (this->ca_itv!=(*this).punt_carr->vc.begin() || ((*this->ca_itv).getArrest() == false));
 	
-	return aux;
+	return *this;
 }
 
 bool conjunto::const_arrest_iterator::operator == (const conjunto::const_arrest_iterator & it)
@@ -684,14 +655,6 @@ conjunto::description_iterator conjunto::dend()
 	
 	sal.d_itv = vc.end();
 	
-	bool encontrado = false;
-	while (sal.d_itv != vc.begin() && !encontrado){
-		if ((*sal.d_itv).getDescription() == sal.descr)
-			encontrado = true;
-		else
-			sal.d_itv--;
-	}
-	
         return sal;
 }	
 	
@@ -718,9 +681,8 @@ const conjunto::entrada & conjunto::description_iterator::operator*() const
 
 conjunto::description_iterator & conjunto::description_iterator::operator = (const conjunto::description_iterator & i)
 {
-	conjunto::description_iterator iterador;
-	iterador.d_itv = i.d_itv;
-	return iterador;
+	this->d_itv = i.d_itv;
+	return *this;
 }
 
 conjunto::description_iterator conjunto::description_iterator::operator++(int)
@@ -743,10 +705,10 @@ conjunto::description_iterator & conjunto::description_iterator::operator ++()
 {
 	conjunto::description_iterator aux;
 	do {
-		(aux.d_itv)++;
-	} while (aux.d_itv!=(*this).punt_desc->vc.end() && ((*aux.d_itv).getDescription() != descr));
+		(this->d_itv)++;
+	} while (this->d_itv!=(*this).punt_desc->vc.end() && ((*this->d_itv).getDescription() != descr));
 	
-	return aux;
+	return *this;
 }
 
 conjunto::description_iterator conjunto::description_iterator::operator--(int)
@@ -767,12 +729,11 @@ conjunto::description_iterator conjunto::description_iterator::operator--(int)
 
 conjunto::description_iterator & conjunto::description_iterator::operator --()
 {
-	conjunto::description_iterator aux;
 	do {
-		(aux.d_itv)--;
-	}while (aux.d_itv!=(*this).punt_desc->vc.begin() && ((*aux.d_itv).getDescription() != descr));
+		(this->d_itv)--;
+	}while (this->d_itv!=(*this).punt_desc->vc.begin() && ((*this->d_itv).getDescription() != descr));
 	
-	return aux;
+	return *this;
 }
 
 bool conjunto::description_iterator::operator == (const conjunto::description_iterator & it)
@@ -811,15 +772,7 @@ conjunto::const_description_iterator conjunto::cdend()
 	
 	sal.cd_itv = vc.end();
 	
-	bool encontrado = false;
-	while (sal.cd_itv != vc.begin() && !encontrado){
-		if ((*sal.cd_itv).getDescription() == sal.descr)
-			encontrado = true;
-		else
-			sal.cd_itv--;
-	}
-	
-        return sal;
+    return sal;
 }	
 	
 // CONST DESCRIPTION ITERATOR ------------------------------------------------------------
@@ -852,9 +805,8 @@ const conjunto::entrada & conjunto::const_description_iterator::operator*() cons
 
 conjunto::const_description_iterator & conjunto::const_description_iterator::operator=(const conjunto::const_description_iterator & i)
 {
-	conjunto::const_description_iterator iterador;
-	iterador.cd_itv = i.cd_itv;
-	return iterador;
+	this->cd_itv = i.cd_itv;
+	return *this;
 }
 
 conjunto::const_description_iterator conjunto::const_description_iterator::operator++(int)
@@ -875,12 +827,11 @@ conjunto::const_description_iterator conjunto::const_description_iterator::opera
 
 conjunto::const_description_iterator & conjunto::const_description_iterator::operator ++()
 {
-	conjunto::const_description_iterator aux;
 	do {
-		(aux.cd_itv)++;
-	} while (aux.cd_itv!=(*this).punt_cdesc->vc.end() || ((*aux.cd_itv).getDescription() == descr));
+		(this->cd_itv)++;
+	} while (this->cd_itv!=(*this).punt_cdesc->vc.end() || ((*this->cd_itv).getDescription() == descr));
 	
-	return aux;
+	return *this;
 }
 
 conjunto::const_description_iterator conjunto::const_description_iterator::operator--(int)
@@ -901,12 +852,11 @@ conjunto::const_description_iterator conjunto::const_description_iterator::opera
 
 conjunto::const_description_iterator & conjunto::const_description_iterator::operator --()
 {
-	conjunto::const_description_iterator aux;
 	do {
-		(aux.cd_itv)--;
-	}while (aux.cd_itv!=(*this).punt_cdesc->vc.begin() || ((*aux.cd_itv).getDescription() == descr));
+		(this->cd_itv)--;
+	}while (this->cd_itv!=(*this).punt_cdesc->vc.begin() || ((*this->cd_itv).getDescription() == descr));
 	
-	return aux;
+	return *this;
 }
 
 bool conjunto::const_description_iterator::operator == (const conjunto::const_description_iterator & it)

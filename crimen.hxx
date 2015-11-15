@@ -321,26 +321,26 @@ bool crimen::operator>=(const crimen & x) const {
 }
 
 ostream& operator<<(ostream& os, const crimen& c) {
-    os << c.getID() << " " << 
-            c.getCaseNumber() << " " << 
-            c.getDate() << " " <<
-            c.getBlock() << " " <<
-            c.getIUCR() << " " <<
-            c.getPrimaryType() << " " <<
-            c.getDescription() << " " <<
-            c.getLocationDescription()  << " " <<
-            c.getArrest() << " " <<
-            c.getDomestic() << " " <<
-            c.getBeat() << " " <<
-            c.getDistrict() << " " <<
-            c.getWard() << " " <<
-            c.getCommunityArea() << " " <<
-            c.getXCoord() << " " <<
-            c.getYCoord() << " " <<
-            c.getYear() << " " <<
-            c.getUpdatedOn() << " " <<
-            c.getLatitude() << " " <<
-            c.getLongitude() << endl;
-    
+    os << "ID:" << c.getID() << " " <<
+            "Case no:" << c.getCaseNumber() << " " <<
+            "Date:" << c.getDate() << " " <<
+            "Block:" << c.getBlock() << " " <<
+            "IUCR:" << c.getIUCR() << " " <<
+            "Primary T:" << c.getPrimaryType() << " " <<
+            "Description:" << c.getDescription() << " " <<
+            "Location D:" << c.getLocationDescription() << " " <<
+            "Arrest:" << c.getArrest() << " " <<
+            "Domestic:" << c.getDomestic() << " " <<
+            "Beat:" << c.getBeat() << " " <<
+            "District:" << c.getDistrict() << " " <<
+            "Ward:" << c.getWard() << " " <<
+            "Comm Area:" << c.getCommunityArea() << " " <<
+            "X:" << c.getXCoord() << " " <<
+            "Y:" << c.getYCoord() << " " <<
+            "Year:" << c.getYear() << " " <<
+            "Updated On:" << c.getUpdatedOn() << " " <<
+            "Lat:" << c.getLatitude() << " " <<
+            "Long:" << c.getLongitude() << endl;
+
     return os;
 }

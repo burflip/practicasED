@@ -191,12 +191,6 @@ bool conjunto::cheq_rep() const {
 
 }
 
-ostream & operator<<(ostream & sal, const conjunto & D) {
-    for (unsigned int i = 0; i < D.size(); i++)
-        sal << D.getAt(i) << endl;
-
-    return sal;
-}
 
 conjunto::iterator conjunto::begin() {
     conjunto::iterator sal;
@@ -747,4 +741,12 @@ bool conjunto::const_description_iterator::operator!=(const conjunto::const_desc
     return (this->cd_itv != it.cd_itv);
 }
 
-
+ostream& operator<<(ostream& os, const conjunto& c) {
+    
+    for (int i = 0; i<c.size(); i++)
+		os << "Conjunto " << i << endl << c.getAt(i) << endl;
+		
+	
+    
+    return os;
+}

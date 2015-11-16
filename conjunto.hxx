@@ -26,8 +26,8 @@ conjunto::conjunto(const conjunto & d) {
 
 crimen conjunto::getAt(int i) const {
     crimen c;
-    if (vc.size() < (unsigned) i) {
-        c = vc.at(i);
+    if (this->vc.size() > (unsigned) i) {
+        c = this->vc.at(i);
     }
     return c;
 }
@@ -108,53 +108,19 @@ bool conjunto::insert(const conjunto::entrada & e) {
     it_final.itv = vc.end();
 
     conjunto::iterator it_find;
-
-
+    
+    
     if (this->vc.empty()) {
         this->vc.push_back(e);
         insertado = true;
     } else {
         if ((*it_final).getID() < e.getID()) {
-            vc.push_back(e);
+            this->vc.push_back(e);
             insertado = true;
         } else {
             it_find = this->find(e.getID());
         }
     }
-    /*conjunto::iterator it;
-    it.itv = this->vc.begin();
-
-    conjunto::iterator it_final;
-    it_final.itv = vc.end();
-
-    conjunto::iterator it_find;
-    it_find = this->find(e.getID());
-
-
-    if (this->vc.empty()) {
-        this->vc.push_back(e);
-        insertado = true;
-    }
-    else {
-        if (it_find == it_final) {
-
-            while (it != it_final && !insertado) {
-                if ((*it).getID() > e.getID()) {
-                    this->vc.insert((it.itv), e);
-                    insertado = true;
-                } else
-                    it++;
-            }
-
-
-        }
-        if (!insertado) {
-            this->vc.push_back(e);
-            insertado = true;
-        }
-
-    }*/
-
 
     return insertado;
 }

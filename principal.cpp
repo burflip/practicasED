@@ -58,7 +58,7 @@ bool load(conjunto & C, const string & s) {
             getline(fe, cadena, '\n');
             stringstream ss;
             ss.str(cadena);
-
+           
             crim.setID(stol(readItem(ss)));
             crim.setCaseNumber(readItem(ss));
             crim.setDate(fecha(readItem(ss)));
@@ -82,6 +82,7 @@ bool load(conjunto & C, const string & s) {
             crim.setLongitude(stof(readItem(ss)));
 
             ss << endl;
+            
 
             C.insert(crim);
         }
@@ -98,8 +99,8 @@ int main(int argc, char* argv[]) {
     conjunto ChicagoDB;
     load(ChicagoDB, "crimenes.csv");
 
-    cout << ChicagoDB.size();
-
-
+    cout << ChicagoDB.size() << endl;
+    
+    cout << ChicagoDB.getAt(3000) << endl;
     return 0;
 }

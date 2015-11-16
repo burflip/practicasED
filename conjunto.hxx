@@ -34,32 +34,51 @@ crimen conjunto::getAt(int i) const {
 
 conjunto::iterator conjunto::find(const long int & id) {
 
-    conjunto::iterator it;
-
-    //find sin funcionar correctamente
-
-    return it;
-}
-
-/*conjunto::const_iterator conjunto::find( const long int & id)const{
-	    
-    conjunto::const_iterator it;
-
-
-    if (this->cheq_rep()) {
-        for (unsigned int i = 0; i < vc.size(); i++) {
-            if (vc.at(i).getID() == id) {
-                it = (this->begin())+i;
-                        }
-            else
-                                it = this->end();
+    conjunto::iterator it_inf,it_medio,it_sup;
+    
+    it_inf = this->begin();
+    it_sup = this->end();
+    it_medio = this->begin() + (int) ((this->size()-1)/2);
+    bool encontrado = false;
+    int i = 0;
+    
+    while(it_inf.itv <= it_sup.itv && !encontrado && i<5) {
+        it_medio = this->begin() + (distance(it_inf.itv,it_sup.itv)/2 + distance(this->begin().itv,it_inf.itv));
+        
+        //cout << "SUMA:" << (distance(it_inf.itv,it_sup.itv)/2 + distance(this->begin().itv, it_inf.itv) ) << endl;
+        
+        if((*it_medio).getID() == id) {
+            encontrado = true;
+        } else {
+            /*cout << "ID:" << id << " < " << (*it_medio).getID() << endl;
+            cout << "ID:2" << " < " << distance(this->begin().itv,it_medio.itv) << endl;
+            cout << "SUP:" << distance(this->begin().itv,it_sup.itv) << endl;
+            cout << "INF:" << distance(this->begin().itv,it_inf.itv) << endl;
+            cout << "MED:" << distance(this->begin().itv,it_medio.itv) << endl;
+            cout << endl;*/
+            if(id < (*it_medio).getID()){
+                //cout << "ok";
+                it_sup = it_medio;
+                it_sup = it_sup - 1; //++ core dump
+            } else {
+                it_inf = it_medio;
+                it_inf = it_inf + 1; //-- core dump
+            }
+            
+            /*cout << "SUP:" << distance(this->begin().itv,it_sup.itv) << endl;
+            cout << "INF:" << distance(this->begin().itv,it_inf.itv) << endl;
+            cout << "MED:" << distance(this->begin().itv,it_medio.itv) << endl;
+            cout << endl;*/
         }
-		
+        i++;
     }
     
-    return it;
-} 
- */
+    if(!encontrado)
+        it_medio = this->end();
+
+
+    return it_medio;
+}
 
 string conjunto::zeroFill(const string & s, unsigned int n) const {
     string filled = s;
@@ -117,9 +136,9 @@ bool conjunto::insert(const conjunto::entrada & e) {
         if ((*it_final).getID() < e.getID()) {
             this->vc.push_back(e);
             insertado = true;
-        } else {
+        }/* else {
             it_find = this->find(e.getID());
-        }
+        }*/
     }
 
     return insertado;
@@ -247,6 +266,13 @@ conjunto::iterator & conjunto::iterator::operator++() {
 
     if (this->itv != (*this).puntero->vc.end())
         this->itv++;
+
+    return *this;
+}
+
+conjunto::iterator & conjunto::iterator::operator-(int i) {
+    for (int j = 0; j < i; j++)
+        (this->itv)++;
 
     return *this;
 }
@@ -743,7 +769,7 @@ bool conjunto::const_description_iterator::operator!=(const conjunto::const_desc
 
 ostream& operator<<(ostream& os, const conjunto& c) {
     
-    for (int i = 0; i<c.size(); i++)
+    for (unsigned int i = 0; i<c.size(); i++)
 		os << "Conjunto " << i << endl << c.getAt(i) << endl;
 		
 	

@@ -97,8 +97,9 @@ bool load(conjunto & C, const string & s) {
 int main(int argc, char* argv[]) {
 
     conjunto ChicagoDB;
-    load(ChicagoDB, "crimenes10.csv");
+    load(ChicagoDB, "crimenes.csv");
     
-    cout << (*ChicagoDB.find(17031069)) << endl;
+    cout << ChicagoDB.size() << endl;
+    //cout << (*ChicagoDB.find(10230942)).getID() << endl;
     return 0;
 }

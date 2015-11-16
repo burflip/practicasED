@@ -121,24 +121,21 @@ conjunto conjunto::findDESCR(const string & descr) const {
 }
 
 bool conjunto::insert(const conjunto::entrada & e) {
-
+    
+    conjunto::iterator it;
     bool insertado = false;
-    conjunto::iterator it_final;
-    it_final.itv = vc.end();
 
-    conjunto::iterator it_find;
-    
-    
     if (this->vc.empty()) {
         this->vc.push_back(e);
         insertado = true;
     } else {
-        if ((*it_final).getID() < e.getID()) {
+        if (vc.back().getID() < e.getID()) {
             this->vc.push_back(e);
             insertado = true;
-        }/* else {
-            it_find = this->find(e.getID());
-        }*/
+        } else {
+            it = find(e.getID());
+           
+        }
     }
 
     return insertado;

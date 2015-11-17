@@ -105,7 +105,7 @@ public:
     else cout << "No esta";
     \endcode
      */
-    //conjunto::const_iterator  find( const long int & id)const;
+    conjunto::const_iterator  find( const long int & id)const;
 
 
     string zeroFill(const string & s, unsigned int n) const;

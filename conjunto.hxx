@@ -1,5 +1,4 @@
 /*! Implementacion  de la clase conjunto
-
  */
 
 /** @todo implementar la funcion
@@ -32,53 +31,62 @@ crimen conjunto::getAt(int i) const {
     return c;
 }
 
-conjunto::iterator conjunto::find(const long int & id) {
-
-    conjunto::iterator it_inf,it_medio,it_sup;
+conjunto::iterator conjunto::find(const long int & id){
+    conjunto::iterator it;
+    vector<conjunto::entrada>::iterator itvec = vc.begin();
+    it.itv = vc.end();
     
-    it_inf = this->begin();
-    it_sup = this->end();
-    it_medio = this->begin() + (int) ((this->size()-1)/2);
-    bool encontrado = false;
-    int i = 0;
+    if (this->cheq_rep()) {
+		int abajo = 0;
+		int arriba = this->vc.size() - 1;
+		int centro;
     
-    while(it_inf.itv <= it_sup.itv && !encontrado && i<5) {
-        it_medio = this->begin() + (distance(it_inf.itv,it_sup.itv)/2 + distance(this->begin().itv,it_inf.itv));
-        
-        //cout << "SUMA:" << (distance(it_inf.itv,it_sup.itv)/2 + distance(this->begin().itv, it_inf.itv) ) << endl;
-        
-        if((*it_medio).getID() == id) {
-            encontrado = true;
-        } else {
-            /*cout << "ID:" << id << " < " << (*it_medio).getID() << endl;
-            cout << "ID:2" << " < " << distance(this->begin().itv,it_medio.itv) << endl;
-            cout << "SUP:" << distance(this->begin().itv,it_sup.itv) << endl;
-            cout << "INF:" << distance(this->begin().itv,it_inf.itv) << endl;
-            cout << "MED:" << distance(this->begin().itv,it_medio.itv) << endl;
-            cout << endl;*/
-            if(id < (*it_medio).getID()){
-                //cout << "ok";
-                it_sup = it_medio;
-                it_sup = it_sup - 1; //++ core dump
-            } else {
-                it_inf = it_medio;
-                it_inf = it_inf + 1; //-- core dump
-            }
-            
-            /*cout << "SUP:" << distance(this->begin().itv,it_sup.itv) << endl;
-            cout << "INF:" << distance(this->begin().itv,it_inf.itv) << endl;
-            cout << "MED:" << distance(this->begin().itv,it_medio.itv) << endl;
-            cout << endl;*/
-        }
-        i++;
-    }
-    
-    if(!encontrado)
-        it_medio = this->end();
+		while (abajo <= arriba) {
+			centro = ((arriba-abajo) / 2) + abajo;
+			if (this->vc.at(centro).getID() == id) {
+				itvec = vc.begin() + centro;
+				it.itv = itvec;
+			}
+			else {
+				if (id < this->vc.at(centro).getID())
+					arriba = centro-1;
+				else
+					abajo = centro +1;
+			}
+		}
+	}
 
-
-    return it_medio;
+    return it;
 }
+		
+conjunto::const_iterator conjunto::find(const long int & id) const{
+    conjunto::const_iterator it;
+    vector<conjunto::entrada>::const_iterator itvec = vc.begin();
+    it.c_itv = vc.end();
+    
+    if (this->cheq_rep()) {
+		int abajo = 0;
+		int arriba = this->vc.size() - 1;
+		int centro;
+    
+		while (abajo <= arriba) {
+			centro = ((arriba-abajo) / 2) + abajo;
+			if (this->vc.at(centro).getID() == id) {
+				itvec = vc.begin() + centro;
+				it.c_itv = itvec;
+			}
+			else {
+				if (id < this->vc.at(centro).getID())
+					arriba = centro-1;
+				else
+					abajo = centro +1;
+			}
+		}
+	}
+
+    return it;
+}
+
 
 string conjunto::zeroFill(const string & s, unsigned int n) const {
     string filled = s;
@@ -121,24 +129,36 @@ conjunto conjunto::findDESCR(const string & descr) const {
 }
 
 bool conjunto::insert(const conjunto::entrada & e) {
-    
-    conjunto::iterator it;
+
     bool insertado = false;
+    conjunto::iterator it;
+    it.itv = this->vc.begin();
+    
+    conjunto::iterator it_final;
+    it_final.itv = this->vc.end();
 
-    if (this->vc.empty()) {
-        this->vc.push_back(e);
-        insertado = true;
-    } else {
-        if (vc.back().getID() < e.getID()) {
-            this->vc.push_back(e);
-            insertado = true;
-        } else {
-            it = find(e.getID());
-           
-        }
-    }
+	conjunto::iterator it_find;
+	it_find = this->find(e.getID());
+	
+	
 
+    if (it_find == it_final) {
+
+     while (it != it_final && !insertado) {
+          if ((*it).getID() > e.getID()) {
+              this->vc.insert((it.itv), e);
+              insertado = true;
+          } else
+              it++;
+     }
+     }
+    
+	if (!insertado){
+		insertado = true;
+		this->vc.push_back (e);
+	} 
     return insertado;
+    
 }
 
 bool conjunto::erase(const long int & id) {
@@ -237,7 +257,12 @@ conjunto::iterator::iterator(const iterator & i) {
 const conjunto::entrada & conjunto::iterator::operator*() const {
     return *(this->itv);
 }
+conjunto::iterator & conjunto::iterator::operator-(int i) {
+    for (int j = 0; j < i; j++)
+        (this->itv)++;
 
+    return *this;
+}
 conjunto::iterator & conjunto::iterator::operator+(int i) {
     for (int j = 0; j < i; j++)
         (this->itv)++;
@@ -263,13 +288,6 @@ conjunto::iterator & conjunto::iterator::operator++() {
 
     if (this->itv != (*this).puntero->vc.end())
         this->itv++;
-
-    return *this;
-}
-
-conjunto::iterator & conjunto::iterator::operator-(int i) {
-    for (int j = 0; j < i; j++)
-        (this->itv)++;
 
     return *this;
 }
@@ -566,11 +584,9 @@ bool conjunto::const_arrest_iterator::operator!=(const conjunto::const_arrest_it
 // DESCRIPTION BEGIN Y END
 
 conjunto::description_iterator conjunto::dbegin(const string & descr) {
-
     conjunto::description_iterator sal;
 
     sal.d_itv = vc.begin();
-    sal.setDescr(descr);
 
     bool encontrado = false;
     while (sal.d_itv != vc.end() && !encontrado) {
@@ -579,7 +595,7 @@ conjunto::description_iterator conjunto::dbegin(const string & descr) {
         else
             sal.d_itv++;
     }
-
+	sal.setDescr (descr);
     return sal;
 }
 
@@ -766,7 +782,7 @@ bool conjunto::const_description_iterator::operator!=(const conjunto::const_desc
 
 ostream& operator<<(ostream& os, const conjunto& c) {
     
-    for (unsigned int i = 0; i<c.size(); i++)
+    for (int i = 0; i<c.size(); i++)
 		os << "Conjunto " << i << endl << c.getAt(i) << endl;
 		
 	

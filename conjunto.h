@@ -337,7 +337,7 @@ public:
         description_iterator(const description_iterator & it);
 
         void setDescr(const string & descr);
-
+		string getDescr ();
         const conjunto::entrada & operator*() const;
         description_iterator operator++(int);
         description_iterator & operator++();
@@ -347,7 +347,7 @@ public:
         bool operator!=(const description_iterator & it);
         description_iterator & operator=(const description_iterator & it);
     private:
-        string descr; // la descripcion se asigna con el metodo dbegin
+        string descr ;// la descripcion se asigna con el metodo dbegin
         vector<entrada>::iterator d_itv;
         friend class conjunto;
         conjunto * punt_desc;

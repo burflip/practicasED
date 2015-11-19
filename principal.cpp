@@ -97,9 +97,39 @@ bool load(conjunto & C, const string & s) {
 int main(int argc, char* argv[]) {
 
     conjunto ChicagoDB;
-    load(ChicagoDB, "crimenes.csv");
-    
-    cout << ChicagoDB.size() << endl;
-    //cout << (*ChicagoDB.find(10230942)).getID() << endl;
+    load(ChicagoDB, "crimenes1000.csv");
+
+	conjunto::description_iterator di;
+	di = ChicagoDB.dbegin("TO VEHICLE");
+	
+	while (di != ChicagoDB.dend()) {
+		cout << *di << endl;
+		di++;
+	}
+	
+	/*while (di != ChicagoDB.dend()) {
+		cout << *di << endl;
+		cout << di.descr << endl;
+		di++;
+	}*/
+	
+	/*conjunto::arrest_iterator ai;
+	ai = ChicagoDB.abegin();
+	
+	
+	while (ai != ChicagoDB.dend()) {
+		cout << *ai << endl;
+		cout << ai.descr << endl;
+		ai++;
+	}
+	*/
+	/*conjunto::iterator it;
+	it = ChicagoDB.begin();
+	
+	while (it != ChicagoDB.end()) {
+		cout << *it << endl;
+		it ++;
+	} */
+	
     return 0;
 }

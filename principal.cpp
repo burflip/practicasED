@@ -97,7 +97,7 @@ bool load(conjunto & C, const string & s) {
 int main(int argc, char* argv[]) {
 
     conjunto ChicagoDB;
-    load(ChicagoDB, "crimenes1000.csv");
+    load(ChicagoDB, "crimenes10.csv");
 
 	conjunto::description_iterator di;
 	di = ChicagoDB.dbegin("TO VEHICLE");

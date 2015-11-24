@@ -31,62 +31,59 @@ crimen conjunto::getAt(int i) const {
     return c;
 }
 
-conjunto::iterator conjunto::find(const long int & id){
+conjunto::iterator conjunto::find(const long int & id) {
     conjunto::iterator it;
     vector<conjunto::entrada>::iterator itvec = vc.begin();
     it.itv = vc.end();
-    
+
     if (this->cheq_rep()) {
-		int abajo = 0;
-		int arriba = this->vc.size() - 1;
-		int centro;
-    
-		while (abajo <= arriba) {
-			centro = ((arriba-abajo) / 2) + abajo;
-			if (this->vc.at(centro).getID() == id) {
-				itvec = vc.begin() + centro;
-				it.itv = itvec;
-			}
-			else {
-				if (id < this->vc.at(centro).getID())
-					arriba = centro-1;
-				else
-					abajo = centro +1;
-			}
-		}
-	}
+        int abajo = 0;
+        int arriba = this->vc.size() - 1;
+        int centro;
+
+        while (abajo <= arriba) {
+            centro = ((arriba - abajo) / 2) + abajo;
+            if (this->vc.at(centro).getID() == id) {
+                itvec = vc.begin() + centro;
+                it.itv = itvec;
+            } else {
+                if (id < this->vc.at(centro).getID())
+                    arriba = centro - 1;
+                else
+                    abajo = centro + 1;
+            }
+        }
+    }
 
     return it;
 }
-		
-conjunto::const_iterator conjunto::find(const long int & id) const{
+
+conjunto::const_iterator conjunto::find(const long int & id) const {
     conjunto::const_iterator it;
     vector<conjunto::entrada>::const_iterator itvec = vc.begin();
     it.c_itv = vc.end();
-    
+
     if (this->cheq_rep()) {
-		int abajo = 0;
-		int arriba = this->vc.size() - 1;
-		int centro;
-    
-		while (abajo <= arriba) {
-			centro = ((arriba-abajo) / 2) + abajo;
-			if (this->vc.at(centro).getID() == id) {
-				itvec = vc.begin() + centro;
-				it.c_itv = itvec;
-			}
-			else {
-				if (id < this->vc.at(centro).getID())
-					arriba = centro-1;
-				else
-					abajo = centro +1;
-			}
-		}
-	}
+        int abajo = 0;
+        int arriba = this->vc.size() - 1;
+        int centro;
+
+        while (abajo <= arriba) {
+            centro = ((arriba - abajo) / 2) + abajo;
+            if (this->vc.at(centro).getID() == id) {
+                itvec = vc.begin() + centro;
+                it.c_itv = itvec;
+            } else {
+                if (id < this->vc.at(centro).getID())
+                    arriba = centro - 1;
+                else
+                    abajo = centro + 1;
+            }
+        }
+    }
 
     return it;
 }
-
 
 string conjunto::zeroFill(const string & s, unsigned int n) const {
     string filled = s;
@@ -133,32 +130,32 @@ bool conjunto::insert(const conjunto::entrada & e) {
     bool insertado = false;
     conjunto::iterator it;
     it.itv = this->vc.begin();
-    
+
     conjunto::iterator it_final;
     it_final.itv = this->vc.end();
 
-	conjunto::iterator it_find;
-	it_find = this->find(e.getID());
-	
-	
+    conjunto::iterator it_find;
+    it_find = this->find(e.getID());
+
+
 
     if (it_find == it_final) {
 
-     while (it != it_final && !insertado) {
-          if ((*it).getID() > e.getID()) {
-              this->vc.insert((it.itv), e);
-              insertado = true;
-          } else
-              it++;
-     }
-     }
-    
-	if (!insertado){
-		insertado = true;
-		this->vc.push_back (e);
-	} 
+        while (it != it_final && !insertado) {
+            if ((*it).getID() > e.getID()) {
+                this->vc.insert((it.itv), e);
+                insertado = true;
+            } else
+                it++;
+        }
+    }
+
+    if (!insertado) {
+        insertado = true;
+        this->vc.push_back(e);
+    }
     return insertado;
-    
+
 }
 
 bool conjunto::erase(const long int & id) {
@@ -227,7 +224,6 @@ bool conjunto::cheq_rep() const {
 
 }
 
-
 conjunto::iterator conjunto::begin() {
     conjunto::iterator sal;
     sal.itv = vc.begin();
@@ -257,12 +253,14 @@ conjunto::iterator::iterator(const iterator & i) {
 const conjunto::entrada & conjunto::iterator::operator*() const {
     return *(this->itv);
 }
+
 conjunto::iterator & conjunto::iterator::operator-(int i) {
     for (int j = 0; j < i; j++)
         (this->itv)++;
 
     return *this;
 }
+
 conjunto::iterator & conjunto::iterator::operator+(int i) {
     for (int j = 0; j < i; j++)
         (this->itv)++;
@@ -276,12 +274,10 @@ conjunto::iterator & conjunto::iterator::operator=(const conjunto::iterator & i)
 }
 
 conjunto::iterator & conjunto::iterator::operator++() {
-    conjunto::iterator antiguo;
-    antiguo.itv = this->itv;
     if (this->itv != (*this).puntero->vc.end())
         (this->itv)++;
 
-    return antiguo;
+    return (*this);
 }
 
 conjunto::iterator conjunto::iterator::operator++(int) {
@@ -293,15 +289,13 @@ conjunto::iterator conjunto::iterator::operator++(int) {
 }
 
 conjunto::iterator & conjunto::iterator::operator--() {
-    conjunto::iterator antiguo;
-    antiguo.itv = this->itv;
     if (this->itv != (*this).puntero->vc.begin())
         (this->itv)--;
 
-    return antiguo;
+    return (*this);
 }
 
-conjunto::iterator  conjunto::iterator::operator--(int) {
+conjunto::iterator conjunto::iterator::operator--(int) {
     if (this->itv != (*this).puntero->vc.begin())
         this->itv--;
 
@@ -360,12 +354,10 @@ conjunto::const_iterator & conjunto::const_iterator::operator=(const conjunto::c
 }
 
 conjunto::const_iterator & conjunto::const_iterator::operator++() {
-    conjunto::const_iterator antiguo;
-    antiguo.c_itv = this->c_itv;
     if (this->c_itv != (*this).punt_const->vc.end())
         (this->c_itv)++;
 
-    return antiguo;
+    return (*this);
 }
 
 conjunto::const_iterator conjunto::const_iterator::operator++(int) {
@@ -376,12 +368,10 @@ conjunto::const_iterator conjunto::const_iterator::operator++(int) {
 }
 
 conjunto::const_iterator & conjunto::const_iterator::operator--() {
-    conjunto::const_iterator antiguo;
-    antiguo.c_itv = this->c_itv;
     if (this->c_itv != (*this).punt_const->vc.begin())
         (this->c_itv)--;
 
-    return antiguo;
+    return (*this);
 }
 
 conjunto::const_iterator conjunto::const_iterator::operator--(int) {
@@ -442,35 +432,30 @@ conjunto::arrest_iterator & conjunto::arrest_iterator::operator=(const conjunto:
 }
 
 conjunto::arrest_iterator & conjunto::arrest_iterator::operator++() {
-    conjunto::arrest_iterator antiguo;
-    antiguo.a_itv = this->a_itv;
-    		
+
     do {
         (this->a_itv)++;
     } while (this->a_itv != (*this).punt_arr->vc.end() || ((*this->a_itv).getArrest() == false));
 
-    return antiguo;
+    return (*this);
 }
 
-conjunto::arrest_iterator  conjunto::arrest_iterator::operator++(int) {
-	
+conjunto::arrest_iterator conjunto::arrest_iterator::operator++(int) {
+
     do {
         (this->a_itv)++;
-        
-    } while (this->a_itv < (*this).punt_arr->vc.end() && ((*this->a_itv).getArrest() == false)); 
+
+    } while (this->a_itv < (*this).punt_arr->vc.end() && ((*this->a_itv).getArrest() == false));
 
     return *this;
 }
 
 conjunto::arrest_iterator & conjunto::arrest_iterator::operator--() {
-    conjunto::arrest_iterator antiguo;
-    antiguo.a_itv = this->a_itv;
-
     do {
         (this->a_itv)--;
     } while (this->a_itv != (*this).punt_arr->vc.begin() || ((*this->a_itv).getArrest() == false));
 
-    return antiguo;
+    return (*this);
 }
 
 conjunto::arrest_iterator conjunto::arrest_iterator::operator--(int) {
@@ -538,14 +523,12 @@ conjunto::const_arrest_iterator & conjunto::const_arrest_iterator::operator=(con
 }
 
 conjunto::const_arrest_iterator & conjunto::const_arrest_iterator::operator++() {
-    conjunto::const_arrest_iterator antiguo;
-    antiguo.ca_itv = this->ca_itv;
 
     do {
         (this->ca_itv)++;
     } while (this->ca_itv != (*this).punt_carr->vc.end() || ((*this->ca_itv).getArrest() == false));
 
-    return antiguo;
+    return (*this);
 }
 
 conjunto::const_arrest_iterator conjunto::const_arrest_iterator::operator++(int) {
@@ -585,10 +568,10 @@ bool conjunto::const_arrest_iterator::operator!=(const conjunto::const_arrest_it
 
 // DESCRIPTION BEGIN Y END
 
-conjunto::description_iterator conjunto::dbegin(const string & descripcion){
+conjunto::description_iterator conjunto::dbegin(const string & descripcion) {
     conjunto::description_iterator sal;
-	sal.descr = descripcion;
-	sal.d_itv = vc.begin();
+    sal.setDescr(descripcion);
+    sal.d_itv = vc.begin();
     sal.punt_desc = this;
 
     bool encontrado = false;
@@ -598,14 +581,14 @@ conjunto::description_iterator conjunto::dbegin(const string & descripcion){
         else
             sal.d_itv++;
     }
-        cout << "SAL DESCRIPTION" << sal.descr << endl;
+    cout << "SAL DESCRIPTION" << sal.descr << endl;
 
     return sal;
 }
 
 conjunto::description_iterator conjunto::dend() {
     conjunto::description_iterator sal;
-    
+
     sal.d_itv = vc.end();
 
     return sal;
@@ -613,8 +596,8 @@ conjunto::description_iterator conjunto::dend() {
 
 // DESCRIPTION ITERATOR ------------------------------------------------------------
 
-conjunto::description_iterator::description_iterator(){
-	
+conjunto::description_iterator::description_iterator() {
+
 }
 
 conjunto::description_iterator::description_iterator(const description_iterator & i) {
@@ -623,29 +606,29 @@ conjunto::description_iterator::description_iterator(const description_iterator 
     this->descr = i.descr;
 }
 
-
 const conjunto::entrada & conjunto::description_iterator::operator*() const {
     return *(this->d_itv);
 }
 
 conjunto::description_iterator & conjunto::description_iterator::operator=(const conjunto::description_iterator & i) {
     this->d_itv = i.d_itv;
+    this->setDescr(i.descr);
+    this->punt_desc = i.punt_desc;
     return *this;
 }
 
 conjunto::description_iterator conjunto::description_iterator::operator++(int) {
-    conjunto::description_iterator antiguo;
-    antiguo.d_itv = this->d_itv;
     
-
-    do {
+    bool next = false;
+    while (d_itv < this->punt_desc->vc.end() && !next) {
         (d_itv)++;
-        // cout << *d_itv << endl << endl;
-        cout << "Diiiigoooo: "<<  descr << endl;
-    } while (d_itv < this->punt_desc->vc.end()  &&
-            ((*d_itv).getDescription() != descr));
-
-    return antiguo;
+        cout << "ID" << (*d_itv).getID() << endl;
+        if((*d_itv).getDescription() == descr) {
+            next = true;
+        }
+    }
+    
+    return (*this);
 }
 
 conjunto::description_iterator & conjunto::description_iterator::operator++() {
@@ -729,7 +712,6 @@ void conjunto::const_description_iterator::setDescr(const string & descr) {
     this->descr = descr;
 }
 
-
 const conjunto::entrada & conjunto::const_description_iterator::operator*() const {
     return *(this->cd_itv);
 }
@@ -788,11 +770,11 @@ bool conjunto::const_description_iterator::operator!=(const conjunto::const_desc
 }
 
 ostream& operator<<(ostream& os, const conjunto& c) {
-    
-    for (int i = 0; i<c.size(); i++)
-		os << "Conjunto " << i << endl << c.getAt(i) << endl;
-		
-	
-    
+
+    for (unsigned int i = 0; i < c.size(); i++)
+        os << "Conjunto " << i << endl << c.getAt(i) << endl;
+
+
+
     return os;
 }

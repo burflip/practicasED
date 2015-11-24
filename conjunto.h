@@ -105,7 +105,7 @@ public:
     else cout << "No esta";
     \endcode
      */
-    conjunto::const_iterator  find( const long int & id)const;
+    conjunto::const_iterator find(const long int & id)const;
 
 
     string zeroFill(const string & s, unsigned int n) const;
@@ -196,7 +196,7 @@ public:
      */
     iterator end();
 
-        /** @brief class iterator
+    /** @brief class iterator
      * forward iterador sobre el conjunto, LECTURA
      *  iterator() ,operator*(), operator++, operator++(int) operator=, operator==, operator!=
      * */
@@ -333,11 +333,21 @@ public:
      * */
     class description_iterator {
     public:
+        vector<entrada>::iterator d_itv;
+        conjunto * punt_desc;
+        string descr;
         description_iterator();
         description_iterator(const description_iterator & it);
 
-        void setDescr(const string & descr);
-		string getDescr ();
+        inline void setDescr(const string & descr)
+        {
+            this->descr = descr;
+        };
+        inline string & getDescr()
+        {
+            return this->descr;
+        };
+        
         const conjunto::entrada & operator*() const;
         description_iterator operator++(int);
         description_iterator & operator++();
@@ -347,10 +357,8 @@ public:
         bool operator!=(const description_iterator & it);
         description_iterator & operator=(const description_iterator & it);
     private:
-        string descr ;// la descripcion se asigna con el metodo dbegin
-        vector<entrada>::iterator d_itv;
+        // la descripcion se asigna con el metodo dbegin
         friend class conjunto;
-        conjunto * punt_desc;
     };
 
     const_description_iterator cdbegin(const string & descr);

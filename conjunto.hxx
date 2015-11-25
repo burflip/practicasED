@@ -13,12 +13,12 @@
 
 using namespace std;
 
-template <typename CMP>
+template <class CMP>
 conjunto<CMP>::conjunto() {
 
 }
 
-template <typename CMP>
+template <class CMP>
 conjunto<CMP>::conjunto(const conjunto<CMP> & d) {
     this->vc.clear();
     for (unsigned int i = 0; i < d.size(); i++) {
@@ -26,7 +26,7 @@ conjunto<CMP>::conjunto(const conjunto<CMP> & d) {
     }
 }
 
-template <typename CMP>
+template <class CMP>
 crimen conjunto<CMP>::getAt(int i) const {
     crimen c;
     if (this->vc.size() > (unsigned) i) {
@@ -35,63 +35,44 @@ crimen conjunto<CMP>::getAt(int i) const {
     return c;
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::iterator conjunto<CMP>::find(const long int & id) {
     conjunto<CMP>::iterator it;
-    vector<conjunto<CMP>::entrada>::iterator itvec = vc.begin();
-    it.itv = vc.end();
+	it.itv = vc.begin();
 
-    if (this->cheq_rep()) {
-        int abajo = 0;
-        int arriba = this->vc.size() - 1;
-        int centro;
-
-        while (abajo <= arriba) {
-            centro = ((arriba - abajo) / 2) + abajo;
-            if (this->vc.at(centro).getID() == id) {
-                itvec = vc.begin() + centro;
-                it.itv = itvec;
-            } else {
-                if (id < this->vc.at(centro).getID())
-                    arriba = centro - 1;
-                else
-                    abajo = centro + 1;
-            }
-        }
-    }
-
+    bool encontrado = false;
+    
+    do {
+		if ((*it).getID == id)
+			encontrado = true;
+		else
+			it++;
+	}while ((it.itv != vc.end()) && !encontrado);
+    
     return it;
+
+
+    
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::const_iterator conjunto<CMP>::find(const long int & id) const {
-    conjunto<CMP>::const_iterator it;
-    vector<conjunto<CMP>::entrada>::const_iterator itvec = vc.begin();
-    it.c_itv = vc.end();
- 
-    if (this->cheq_rep()) {
-        int abajo = 0;
-        int arriba = this->vc.size() - 1;
-        int centro;
+    conjunto<CMP>::iterator itc;
+	itc.itv = vc.begin();
 
-        while (abajo <= arriba) {
-            centro = ((arriba - abajo) / 2) + abajo;
-            if (this->vc.at(centro).getID() == id) {
-                itvec = vc.begin() + centro;
-                it.c_itv = itvec;
-            } else {
-                if (id < this->vc.at(centro).getID())
-                    arriba = centro - 1;
-                else
-                    abajo = centro + 1;
-            }
-        }
-    }
-
-    return it;
+    bool encontrado = false;
+    
+    do {
+		if ((*itc).getID == id)
+			encontrado = true;
+		else
+			itc++;
+	}while ((itc.itv != vc.end()) && !encontrado);
+    
+    return itc; 
 }
 
-template <typename CMP>
+template <class CMP>
 string conjunto<CMP>::zeroFill(const string & s, unsigned int n) const {
     string filled = s;
     int diff = n - s.size();
@@ -101,7 +82,7 @@ string conjunto<CMP>::zeroFill(const string & s, unsigned int n) const {
     return filled;
 }
 
-template <typename CMP>
+template <class CMP>
 conjunto<CMP> conjunto<CMP>::findIUCR(const string & iucr) const {
     conjunto<CMP> c;
     string zfIUCR = zeroFill(iucr, 4);
@@ -117,12 +98,12 @@ conjunto<CMP> conjunto<CMP>::findIUCR(const string & iucr) const {
     return c;
 }
 
-template <typename CMP>
+template <class CMP>
 conjunto<CMP> conjunto<CMP>::findDESCR(const string & descr) const {
     conjunto<CMP> c;
 
     for (unsigned int i = 0; i < this->vc.size(); i++) {
-        int j = 0; 
+        int j = 0;
         if (this->getAt(i).getDescription() == descr) {
             c.insert(vc.at(i));
             j++;
@@ -134,10 +115,11 @@ conjunto<CMP> conjunto<CMP>::findDESCR(const string & descr) const {
 
 }
 
-template <typename CMP>
+template <class CMP>
 bool conjunto<CMP>::insert(const conjunto<CMP>::entrada & e) {
 
-    bool insertado = false;
+
+	bool insertado = false;
     conjunto<CMP>::iterator it;
     it.itv = this->vc.begin();
 
@@ -152,7 +134,7 @@ bool conjunto<CMP>::insert(const conjunto<CMP>::entrada & e) {
     if (it_find == it_final) {
 
         while (it != it_final && !insertado) {
-            if ((*it).getID() > e.getID()) {
+            if (!comp((*it), e)) {
                 this->vc.insert((it.itv), e);
                 insertado = true;
             } else
@@ -164,11 +146,10 @@ bool conjunto<CMP>::insert(const conjunto<CMP>::entrada & e) {
         insertado = true;
         this->vc.push_back(e);
     }
-    return insertado;
-
+    return insertado; 
 }
 
-template <typename CMP>
+template <class CMP>
 
 bool conjunto<CMP>::erase(const long int & id) {
     bool borrado = false;
@@ -185,7 +166,7 @@ bool conjunto<CMP>::erase(const long int & id) {
 
 }
 
-template <typename CMP>
+template <class CMP>
 bool conjunto<CMP>::erase(const conjunto<CMP>::entrada & e) {
     bool borrado;
 
@@ -200,7 +181,7 @@ bool conjunto<CMP>::erase(const conjunto<CMP>::entrada & e) {
 
 
 }
-template <typename CMP>
+template <class CMP>
 conjunto<CMP> & conjunto<CMP>::operator=(const conjunto<CMP> & org) {
     this->vc.clear();
 
@@ -212,12 +193,12 @@ conjunto<CMP> & conjunto<CMP>::operator=(const conjunto<CMP> & org) {
     return *this;
 }
 
-template <typename CMP>
+template <class CMP>
 unsigned int conjunto<CMP>::size() const {
     return vc.size();
 }
 
-template <typename CMP>
+template <class CMP>
 bool conjunto<CMP>::empty() const {
     return this->vc.size() == 0;
 }
@@ -227,7 +208,7 @@ bool conjunto<CMP>::empty() const {
 
 // Devuelve si los ID son todos menores o iguales y que son mayores que 0.
 
-template <typename CMP>
+template <class CMP>
 bool conjunto<CMP>::cheq_rep() const {
     bool inv = false;
     int size = vc.size();
@@ -244,7 +225,7 @@ bool conjunto<CMP>::cheq_rep() const {
 
 // ----------------------------- BEGIN Y END----------------------------------
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::iterator conjunto<CMP>::begin() {
     conjunto<CMP>::iterator sal;
     sal.itv = vc.begin();
@@ -252,7 +233,7 @@ typename conjunto<CMP>::iterator conjunto<CMP>::begin() {
     return sal;
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::iterator conjunto<CMP>::end() {
     conjunto<CMP>::iterator sal;
     sal.itv = vc.end();
@@ -263,24 +244,24 @@ typename conjunto<CMP>::iterator conjunto<CMP>::end() {
 
 // CLASE ITERATOR -----------------------------------------------------
 
-template <typename CMP>
+template <class CMP>
 conjunto<CMP>::iterator::iterator() {
 }
 
 /** @brief constructor copia iterator
  */
  
- template <typename CMP>
+ template <class CMP>
 conjunto<CMP>::iterator::iterator(const iterator & i) {
     this->itv = i.itv;
 }
 
-template <typename CMP>
+template <class CMP>
  const typename conjunto<CMP>::entrada & conjunto<CMP>::iterator::operator*() const {
     return *(this->itv);
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::iterator & conjunto<CMP>::iterator::operator-(int i) {
     for (int j = 0; j < i; j++)
         (this->itv)++;
@@ -288,7 +269,7 @@ typename conjunto<CMP>::iterator & conjunto<CMP>::iterator::operator-(int i) {
     return *this;
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::iterator & conjunto<CMP>::iterator::operator+(int i) {
     for (int j = 0; j < i; j++)
         (this->itv)++;
@@ -296,13 +277,13 @@ typename conjunto<CMP>::iterator & conjunto<CMP>::iterator::operator+(int i) {
     return *this;
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::iterator & conjunto<CMP>::iterator::operator=(const conjunto<CMP>::iterator & i) {
     this->itv = i.itv;
     return *this;
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::iterator & conjunto<CMP>::iterator::operator++() {
     if (this->itv != (*this).puntero->vc.end())
         (this->itv)++;
@@ -310,7 +291,7 @@ typename conjunto<CMP>::iterator & conjunto<CMP>::iterator::operator++() {
     return (*this);
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::iterator conjunto<CMP>::iterator::operator++(int) {
 
     if (this->itv != (*this).puntero->vc.end())
@@ -319,7 +300,7 @@ typename conjunto<CMP>::iterator conjunto<CMP>::iterator::operator++(int) {
     return *this;
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::iterator & conjunto<CMP>::iterator::operator--() {
     if (this->itv != (*this).puntero->vc.begin())
         (this->itv)--;
@@ -327,7 +308,7 @@ typename conjunto<CMP>::iterator & conjunto<CMP>::iterator::operator--() {
     return (*this);
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::iterator conjunto<CMP>::iterator::operator--(int) {
     if (this->itv != (*this).puntero->vc.begin())
         this->itv--;
@@ -335,18 +316,18 @@ typename conjunto<CMP>::iterator conjunto<CMP>::iterator::operator--(int) {
     return *this;
 }
 
-template <typename CMP>
+template <class CMP>
 bool conjunto<CMP>::iterator::operator==(const conjunto<CMP>::iterator & it) {
     return (this->itv == it.itv);
 }
 
-template <typename CMP>
+template <class CMP>
 bool conjunto<CMP>::iterator::operator!=(const conjunto<CMP>::iterator & it) {
     return (this->itv != it.itv);
 }
 //CLASE conjunto<CMP> CONST BEGIN Y END --------------------------------------
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::const_iterator conjunto<CMP>::cbegin() {
     conjunto<CMP>::const_iterator sal;
     sal.c_itv = vc.begin();
@@ -354,7 +335,7 @@ typename conjunto<CMP>::const_iterator conjunto<CMP>::cbegin() {
     return sal;
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::const_iterator conjunto<CMP>::cend() {
     conjunto<CMP>::const_iterator sal;
     sal.c_itv = vc.end();
@@ -363,26 +344,26 @@ typename conjunto<CMP>::const_iterator conjunto<CMP>::cend() {
 
 //CLASE CONST_ITERATOR ----------------------------------------------------
 
-template <typename CMP>
+template <class CMP>
 conjunto<CMP>::const_iterator::const_iterator() {
 }
 
-template <typename CMP>
+template <class CMP>
 conjunto<CMP>::const_iterator::const_iterator(const iterator & i) {
     this->c_itv = i.itv;
 }
 
-template <typename CMP>
+template <class CMP>
 conjunto<CMP>::const_iterator::const_iterator(const const_iterator & i) {
     this->c_itv = i.c_itv;
 }
 
-template <typename CMP>
+template <class CMP>
 const typename conjunto<CMP>::entrada & conjunto<CMP>::const_iterator::operator*() const {
     return *(this->c_itv);
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::const_iterator & conjunto<CMP>::const_iterator::operator+(int i) {
     for (int j = 0; j < i; j++)
         (this->c_itv)++;
@@ -390,13 +371,13 @@ typename conjunto<CMP>::const_iterator & conjunto<CMP>::const_iterator::operator
     return *this;
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::const_iterator & conjunto<CMP>::const_iterator::operator=(const conjunto<CMP>::const_iterator & i) {
     this->c_itv = i.c_itv;
     return *this;
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::const_iterator & conjunto<CMP>::const_iterator::operator++() {
     if (this->c_itv != (*this).punt_const->vc.end())
         (this->c_itv)++;
@@ -404,7 +385,7 @@ typename conjunto<CMP>::const_iterator & conjunto<CMP>::const_iterator::operator
     return (*this);
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::const_iterator conjunto<CMP>::const_iterator::operator++(int) {
     if (this->c_itv != (*this).punt_const->vc.end())
         this->c_itv++;
@@ -412,7 +393,7 @@ typename conjunto<CMP>::const_iterator conjunto<CMP>::const_iterator::operator++
     return *this;
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::const_iterator & conjunto<CMP>::const_iterator::operator--() {
     if (this->c_itv != (*this).punt_const->vc.begin())
         (this->c_itv)--;
@@ -420,7 +401,7 @@ typename conjunto<CMP>::const_iterator & conjunto<CMP>::const_iterator::operator
     return (*this);
 }
 
-template <typename CMP>
+template <class CMP>
 typename conjunto<CMP>::const_iterator conjunto<CMP>::const_iterator::operator--(int) {
     if (this->c_itv != (*this).punt_const->vc.begin())
         this->c_itv--;
@@ -428,17 +409,17 @@ typename conjunto<CMP>::const_iterator conjunto<CMP>::const_iterator::operator--
     return *this;
 }
 
-template <typename CMP>
+template <class CMP>
 bool conjunto<CMP>::const_iterator::operator==(const conjunto<CMP>::const_iterator & it) {
     return (this->c_itv == it.c_itv);
 }
 
-template <typename CMP>
+template <class CMP>
 bool conjunto<CMP>::const_iterator::operator!=(const conjunto<CMP>::const_iterator & it) {
     return (this->c_itv != it.c_itv);
 }
 
-template <typename CMP>
+template <class CMP>
 ostream& operator<<(ostream& os, const conjunto<CMP>& c) {
 
     for (unsigned int i = 0; i < c.size(); i++)

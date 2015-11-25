@@ -320,6 +320,27 @@ bool crimen::operator>=(const crimen & x) const {
     return (this->getID() > x.getID() || this->getID() == x.getID());
 }
 
+class ComparacionPorFechaCreciente {
+	public:
+		bool operator()(const crimen &a, const crimen &b) {
+			return (a.getDate() < b.getDate());
+		}
+};
+
+class ComparacionPorFechaDecreciente {
+	public:
+	bool operator()(const crimen &a, const crimen &b) {
+		return !(a.getDate() < b.getDate());
+	}
+};
+
+class ComparacionPorIUCR {
+	public:
+		bool operator()(const crimen &a, const crimen &b) {
+			return (a.getIUCR() < b.getIUCR());
+		}
+};
+
 ostream& operator<<(ostream& os, const crimen& c) {
     os << "ID:" << c.getID() << " " <<
             "Case no:" << c.getCaseNumber() << " " <<

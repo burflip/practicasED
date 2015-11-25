@@ -51,9 +51,9 @@ if (!agresion.empty()){
 
 
 
+template <class CMP>
 
-
-class conjunto {
+class conjunto{
 public:
     /** @brief entrada permite hacer referencia al elemento  almacenados en cada una de las posiciones del conjunto
      */
@@ -64,7 +64,7 @@ public:
     /** @brief constructor primitivo. 
 	
      */
-    conjunto();
+    conjunto<CMP>();
     //declaraciones previa de los iteradores
     class iterator;
     class const_iterator;
@@ -76,7 +76,7 @@ public:
     /** @brief constructor de copia
     @param[in] d conjunto a copiar
      */
-    conjunto(const conjunto & d);
+    conjunto<CMP>(const conjunto<CMP> & d);
 
 
 
@@ -93,7 +93,7 @@ public:
     \endcode
      */
 
-    conjunto::iterator find(const long int & id);
+    conjunto<CMP>::iterator find(const long int & id);
     /** @brief busca un crimen en el conjunto
     @param id identificador del crimen  buscar
     @return Si existe una entrada en el conjunto devuelve un iterador a lo posicion donde está el elemento. Si  no se encuentra devuelve end()
@@ -105,7 +105,7 @@ public:
     else cout << "No esta";
     \endcode
      */
-    conjunto::const_iterator find(const long int & id)const;
+    conjunto<CMP>::const_iterator find(const long int & id)const;
 
 
     string zeroFill(const string & s, unsigned int n) const;
@@ -119,7 +119,7 @@ public:
     A = C.findIUCR("0460");
     \endverbatim
      */
-    conjunto findIUCR(const string & iucr) const;
+    conjunto<CMP> findIUCR(const string & iucr) const;
 
     /** @brief busca los crimenes que contienen una determinada descripcion 
             @param descr string que representa la descripcion del delito buscar
@@ -131,14 +131,14 @@ public:
             A = C.findDESCR("BATTERY");
             \endverbatim
      */
-    conjunto findDESCR(const string & descr) const;
+    conjunto<CMP> findDESCR(const string & descr) const;
 
     /** @brief Inserta una entrada en el conjunto
     @param e entrada a insertar
     @return true si la entrada se ha podido insertar con éxito. False en caso contrario
     @post 	 Si e no esta en el conjunto, el size() sera incrementado en 1.
      */
-    bool insert(const conjunto::entrada & e);
+    bool insert(const conjunto<CMP>::entrada & e);
 
 
 
@@ -164,14 +164,14 @@ public:
     @post Si esta en el conjunto su tamaño se decrementa en 1.
      */
 
-    bool erase(const conjunto::entrada & e);
+    bool erase(const conjunto<CMP>::entrada & e);
 
 
     /** @brief operador de asignación
     @param[in] org conjunto  a copiar.
      Crea un conjunto duplicado exacto de org.
      */
-    conjunto & operator=(const conjunto & org);
+    conjunto<CMP> & operator=(const conjunto<CMP> & org);
 
     /** @brief numero de entradas en el conjunto
     @post  No se modifica el conjunto.
@@ -184,7 +184,6 @@ public:
        @return true si size()==0, false en caso contrario.
      */
     bool empty() const;
-
 
     // ================================= ITERADORES ========================================/
 
@@ -205,7 +204,7 @@ public:
         iterator();
         iterator(const iterator & it);
 
-        const conjunto::entrada & operator*() const;
+        const conjunto<CMP>::entrada & operator*() const;
 
         iterator & operator+(int i);
         iterator operator++(int);
@@ -218,9 +217,9 @@ public:
         iterator & operator=(const iterator & it);
 
     private:
-        friend class conjunto;
+        friend class conjunto<CMP>;
         vector<entrada>::iterator itv;
-        conjunto *puntero;
+        conjunto<CMP> *puntero;
     };
 
     /** @brief  
@@ -246,7 +245,7 @@ public:
         /** @brief Convierte iterator en const_iterator
          */
         const_iterator(const iterator & it);
-        const conjunto::entrada & operator*() const;
+        const conjunto<CMP>::entrada & operator*() const;
 
         const_iterator & operator+(int i);
         const_iterator operator++(int);
@@ -259,138 +258,14 @@ public:
     private:
 
         vector<entrada>::const_iterator c_itv;
-        friend class conjunto;
-        conjunto * punt_const;
+        friend class conjunto<CMP>;
+        conjunto<CMP> * punt_const;
     };
 
-    arrest_iterator abegin();
-
-    arrest_iterator aend();
-    // ============================== arrest iterator ====================================
-
-    class arrest_iterator {
-    public:
-        arrest_iterator();
-        arrest_iterator(const arrest_iterator & it);
-        arrest_iterator(const iterator & it);
-        const conjunto::entrada & operator*() const;
-        arrest_iterator operator++(int);
-        arrest_iterator & operator++();
-        arrest_iterator operator--(int);
-        arrest_iterator & operator--();
-        bool operator==(const arrest_iterator & it);
-        bool operator!=(const arrest_iterator & it);
-        arrest_iterator & operator=(const arrest_iterator & it);
-    private:
-        vector<entrada>::iterator a_itv;
-        friend class conjunto;
-        conjunto * punt_arr;
-    };
-
-    const_arrest_iterator cabegin();
-
-    const_arrest_iterator caend();
-
-    // ==============================const arrest iterator ===============================
-
-    class const_arrest_iterator {
-    public:
-        const_arrest_iterator();
-        const_arrest_iterator(const arrest_iterator & it);
-        const_arrest_iterator(const const_arrest_iterator & it);
-        const conjunto::entrada & operator*() const;
-        const_arrest_iterator operator++(int);
-        const_arrest_iterator & operator++();
-        const_arrest_iterator operator--(int);
-        const_arrest_iterator & operator--();
-        bool operator==(const const_arrest_iterator & it);
-        bool operator!=(const const_arrest_iterator & it);
-        const_arrest_iterator & operator=(const const_arrest_iterator & it);
-    private:
-        vector<entrada>::const_iterator ca_itv;
-        friend class conjunto;
-        conjunto * punt_carr;
-    };
-
-    // ============================== description iterator ===============================
-
-    /**   @brief devolver primera posicion del elemento que empareja con la descripcion descr
-    @param[in] descr descripcion de buscamos
-    @return un iterador que apunta a la primera posicion, el emparejamiento se hace teniendo en cuenta que descr debe ser una subcadena de la descripción del delito.
-     */
-    description_iterator dbegin(const string & descr);
-
-    /**   @brief devolver fin del conjunto
-	 
-   @return un iterador que apunta a la posicion final
-     */
-    description_iterator dend();
-
-    /** @brief class description_iterator
-     * forward iterador constante sobre el diccionario, Lectura 
-     *  const_iterator ,operator*, operator++, operator++(int) operator=, operator==, operator!=
-     * esta clase itera sobre todos los elementos que emparejan con una descripcion
-     * */
-    class description_iterator {
-    public:
-        vector<entrada>::iterator d_itv;
-        conjunto * punt_desc;
-        string descr;
-        description_iterator();
-        description_iterator(const description_iterator & it);
-
-        inline void setDescr(const string & descr)
-        {
-            this->descr = descr;
-        };
-        inline string & getDescr()
-        {
-            return this->descr;
-        };
-        
-        const conjunto::entrada & operator*() const;
-        description_iterator operator++(int);
-        description_iterator & operator++();
-        description_iterator operator--(int);
-        description_iterator & operator--();
-        bool operator==(const description_iterator & it);
-        bool operator!=(const description_iterator & it);
-        description_iterator & operator=(const description_iterator & it);
-    private:
-        // la descripcion se asigna con el metodo dbegin
-        friend class conjunto;
-    };
-
-    const_description_iterator cdbegin(const string & descr);
-
-    const_description_iterator cdend();
-
-    class const_description_iterator {
-    public:
-        const_description_iterator();
-        const_description_iterator(const iterator & it);
-        const_description_iterator(const const_description_iterator & it);
-
-        void setDescr(const string & descr);
-
-        const conjunto::entrada & operator*() const;
-        const_description_iterator operator++(int);
-        const_description_iterator & operator++();
-        const_description_iterator operator--(int);
-        const_description_iterator & operator--();
-        bool operator==(const const_description_iterator & it);
-        bool operator!=(const const_description_iterator & it);
-        const_description_iterator & operator=(const const_description_iterator & it);
-    private:
-        string descr; // la descripcion se asigna en con el metodo dbegin
-        vector<entrada>::const_iterator cd_itv;
-        friend class conjunto;
-        conjunto * punt_cdesc;
-
-    };
-
+  
 private:
     vector<crimen> vc; // vector ORDENADO por crimen.id que almacena los elementos del conjunto
+    CMP comp;
     /** \invariant
  
     IR: rep ==> bool
@@ -409,7 +284,7 @@ private:
     bool cheq_rep() const;
 
     //  declaracion del operator<< como metodo amigo
-    friend ostream & operator<<(ostream & sal, const conjunto & D);
+    friend ostream & operator<<(ostream & sal, const conjunto<CMP> & D);
 
     // Clases amigas  ....
     friend class iterator;
@@ -424,7 +299,8 @@ private:
 @post  No se modifica el conjunto.
 @todo implementar esta funcion
  */
-ostream & operator<<(ostream & sal, const conjunto & D);
+template <class CMP>
+ostream & operator<<(ostream & sal, const conjunto<CMP> & D);
 
 #include "conjunto.hxx"
 

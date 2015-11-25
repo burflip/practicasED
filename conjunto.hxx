@@ -122,7 +122,7 @@ conjunto<CMP> conjunto<CMP>::findDESCR(const string & descr) const {
     conjunto<CMP> c;
 
     for (unsigned int i = 0; i < this->vc.size(); i++) {
-        int j = 0;
+        int j = 0; 
         if (this->getAt(i).getDescription() == descr) {
             c.insert(vc.at(i));
             j++;

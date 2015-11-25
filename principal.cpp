@@ -43,7 +43,8 @@ string readItem(stringstream &ss) {
 @param[in,out] C conjunto sobre el que se lee
 @return true si la lectura ha sido correcta, false en caso contrario
  */
-bool load(conjunto & C, const string & s) {
+template <typename CMP>
+bool load(conjunto<CMP> & C, const string & s) {
     ifstream fe;
     string cadena;
     crimen crim;
@@ -93,19 +94,18 @@ bool load(conjunto & C, const string & s) {
     fe.close();
     return false;
 }
-
 int main(int argc, char* argv[]) {
 
-    conjunto ChicagoDB;
-    load(ChicagoDB, "crimenes10.csv");
+    conjunto<ComparacionPorFechaCreciente> ChicagoDB;
+    load(ChicagoDB, "crimenes100.csv");
 
-	conjunto::description_iterator di;
+	/* conjunto::description_iterator di;
 	di = ChicagoDB.dbegin("TO VEHICLE");
 	
 	while (di != ChicagoDB.dend()) {
 		cout << *di << endl;
 		di++;
-	}
+	} */
 	
 	/*while (di != ChicagoDB.dend()) {
 		cout << *di << endl;
@@ -121,15 +121,14 @@ int main(int argc, char* argv[]) {
 		cout << *ai << endl;
 		cout << ai.descr << endl;
 		ai++;
-	}
-	*/
-	/*conjunto::iterator it;
+	} */
+	
+	conjunto<ComparacionPorFechaCreciente>::iterator it;
 	it = ChicagoDB.begin();
 	
 	while (it != ChicagoDB.end()) {
 		cout << *it << endl;
 		it ++;
-	} */
-	
+	} 
     return 0;
 }

@@ -64,7 +64,7 @@ public:
     /** @brief constructor primitivo. 
 	
      */
-    conjunto<CMP>();
+    conjunto();
     //declaraciones previa de los iteradores
     class iterator;
     class const_iterator;
@@ -107,6 +107,8 @@ public:
      */
     conjunto<CMP>::const_iterator find(const long int & id)const;
 
+
+	conjunto<CMP>::const_iterator find(const crimen & c) const;
 
     string zeroFill(const string & s, unsigned int n) const;
     /** @brief busca los crimenes con el mismo codigo IUCR
@@ -185,6 +187,7 @@ public:
      */
     bool empty() const;
 
+	conjunto(iterator ini, iterator fin);
     // ================================= ITERADORES ========================================/
 
     /**@brief devuelve iterador al inicio del conjunto

@@ -43,7 +43,7 @@ typename conjunto<CMP>::iterator conjunto<CMP>::find(const long int & id) {
     bool encontrado = false;
     
     do {
-		if ((*it).getID == id)
+		if ((*it).getID() == id)
 			encontrado = true;
 		else
 			it++;
@@ -70,6 +70,47 @@ typename conjunto<CMP>::const_iterator conjunto<CMP>::find(const long int & id) 
 	}while ((itc.itv != vc.end()) && !encontrado);
     
     return itc; 
+}
+/*bool conjunto<CMP>::busquedaBinaria (const crimen &d ){
+    int sup=vc.size()-1;
+    int inf = 0;
+    while (sup > inf) {
+      medio = (inf+sup)/2;
+      if (!comp(vc[medio],d) && !comp(d,vc[medio]) ) return true;  // comparamos igualdad entre crimen
+      else if (comp(vc[medio],d)) inf = medio+1; // comparamos menor entre crimen
+      else sup = medio-1;
+    }
+    return false;
+}
+*/
+template <class CMP>
+typename conjunto<CMP>::const_iterator conjunto<CMP>::find(const crimen & c) const {
+    conjunto::iterator it;
+    vector<conjunto::entrada>::iterator itvec = vc.begin();
+    it.itv = vc.end();
+    
+    if (this->cheq_rep()) {
+		int abajo = 0;
+		int arriba = this->vc.size() - 1;
+		int centro;
+    
+		while (abajo <= arriba) {
+			centro = ((arriba-abajo) / 2) + abajo;
+			if ((!comp(vc.at(centro),c)) && !comp(c,vc.at(centro))) {
+				itvec = vc.begin() + centro;
+				it.itv = itvec;
+			}
+			else {
+				if (comp(vc.at(centro), c))
+					arriba = centro-1;
+				else
+					abajo = centro +1;
+			}
+		}
+	}
+
+    return it;
+
 }
 
 template <class CMP>
@@ -126,21 +167,15 @@ bool conjunto<CMP>::insert(const conjunto<CMP>::entrada & e) {
     conjunto<CMP>::iterator it_final;
     it_final.itv = this->vc.end();
 
-    conjunto<CMP>::iterator it_find;
-    it_find = this->find(e.getID());
 
-
-
-    if (it_find == it_final) {
-
-        while (it != it_final && !insertado) {
-            if (!comp((*it), e)) {
-                this->vc.insert((it.itv), e);
-                insertado = true;
-            } else
-                it++;
+	while (it != it_final && !insertado) {
+		if (!comp((*it), e)) {
+			this->vc.insert((it.itv), e);
+			insertado = true;
+		} else
+			it++;
         }
-    }
+
 
     if (!insertado) {
         insertado = true;
@@ -221,6 +256,14 @@ bool conjunto<CMP>::cheq_rep() const {
 
 }
 
+template <class CMP>
+conjunto<CMP>::conjunto(iterator ini, iterator fin) {
+	while (ini < fin) {
+		this.insert(ini);
+		ini++;
+	}
+}
+	// Constructor de conjunto que contiene los elementos contenidos en el rango [ini,fin) 
 
 
 // ----------------------------- BEGIN Y END----------------------------------

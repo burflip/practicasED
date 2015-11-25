@@ -96,39 +96,24 @@ bool load(conjunto<CMP> & C, const string & s) {
 }
 int main(int argc, char* argv[]) {
 
-    conjunto<ComparacionPorFechaCreciente> ChicagoDB;
+    conjunto<greater<crimen>> ChicagoDB;
     load(ChicagoDB, "crimenes100.csv");
 
-	/* conjunto::description_iterator di;
-	di = ChicagoDB.dbegin("TO VEHICLE");
+	conjunto<greater<crimen>>::const_iterator it;
+	it = ChicagoDB.begin();
+	it = it + 30;
+	crimen c;
+	c = (*it);
+	cout << "CRIMEN" << c << endl;
+	it = ChicagoDB.find (c);
 	
-	while (di != ChicagoDB.dend()) {
-		cout << *di << endl;
-		di++;
-	} */
-	
-	/*while (di != ChicagoDB.dend()) {
-		cout << *di << endl;
-		cout << di.descr << endl;
-		di++;
-	}*/
-	
-	/*conjunto::arrest_iterator ai;
-	ai = ChicagoDB.abegin();
-	
-	
-	while (ai != ChicagoDB.dend()) {
-		cout << *ai << endl;
-		cout << ai.descr << endl;
-		ai++;
-	} */
-	
-	conjunto<ComparacionPorFechaCreciente>::iterator it;
+	cout << *it;
+	/*conjunto<ComparacionPorIUCR>::iterator it;
 	it = ChicagoDB.begin();
 	
 	while (it != ChicagoDB.end()) {
 		cout << *it << endl;
 		it ++;
-	} 
+	} */
     return 0;
 }

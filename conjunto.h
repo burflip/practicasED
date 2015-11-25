@@ -188,6 +188,8 @@ public:
     bool empty() const;
 
 	conjunto(iterator ini, iterator fin);
+	conjunto<CMP>::iterator lower_bound(const entrada & x);
+	conjunto<CMP>::const_iterator lower_bound(const entrada & x)const;
     // ================================= ITERADORES ========================================/
 
     /**@brief devuelve iterador al inicio del conjunto

@@ -85,9 +85,9 @@ typename conjunto<CMP>::const_iterator conjunto<CMP>::find(const long int & id) 
 */
 template <class CMP>
 typename conjunto<CMP>::const_iterator conjunto<CMP>::find(const crimen & c) const {
-    conjunto::iterator it;
-    vector<conjunto::entrada>::iterator itvec = vc.begin();
-    it.itv = vc.end();
+    conjunto::const_iterator it;
+    vector<conjunto::entrada>::const_iterator itvec = vc.begin();
+    it.c_itv = vc.end();
     
     if (this->cheq_rep()) {
 		int abajo = 0;
@@ -98,7 +98,7 @@ typename conjunto<CMP>::const_iterator conjunto<CMP>::find(const crimen & c) con
 			centro = ((arriba-abajo) / 2) + abajo;
 			if ((!comp(vc.at(centro),c)) && !comp(c,vc.at(centro))) {
 				itvec = vc.begin() + centro;
-				it.itv = itvec;
+				it.c_itv = itvec;
 			}
 			else {
 				if (comp(vc.at(centro), c))
@@ -155,7 +155,32 @@ conjunto<CMP> conjunto<CMP>::findDESCR(const string & descr) const {
     return c;
 
 }
+/*conjunto::iterator conjunto::find(const long int & id) {
+    conjunto::iterator it;
+    vector<conjunto::entrada>::iterator itvec = vc.begin();
+    it.itv = vc.end();
 
+    if (this->cheq_rep()) {
+        int abajo = 0;
+        int arriba = this->vc.size() - 1;
+        int centro;
+
+        while (abajo <= arriba) {
+            centro = ((arriba - abajo) / 2) + abajo;
+            if (this->vc.at(centro).getID() == id) {
+                itvec = vc.begin() + centro;
+                it.itv = itvec;
+            } else {
+                if (id < this->vc.at(centro).getID())
+                    arriba = centro - 1;
+                else
+                    abajo = centro + 1;
+            }
+        }
+    }
+
+    return it;
+    */
 template <class CMP>
 bool conjunto<CMP>::insert(const conjunto<CMP>::entrada & e) {
 
@@ -264,7 +289,31 @@ conjunto<CMP>::conjunto(iterator ini, iterator fin) {
 	}
 }
 	// Constructor de conjunto que contiene los elementos contenidos en el rango [ini,fin) 
+template <class CMP>
 
+typename conjunto<CMP>::iterator conjunto<CMP>::lower_bound (const conjunto<CMP>::entrada & x) {
+	conjunto<CMP>::iterator it;
+	
+	it = find(x);
+	if (it.itv != vc.end())
+		it++;
+		
+	return it;
+}
+		
+	
+template <class CMP>
+
+typename conjunto<CMP>::const_iterator conjunto<CMP>::lower_bound (const conjunto<CMP>::entrada & x) const {
+	conjunto<CMP>::const_iterator itc;
+	
+	itc = find(x);
+	if (itc.itv != vc.end())
+		itc++;
+		
+	return itc; 
+}
+// Devuelven un iterador al primer elemento en el contenedor que no precede a x en el conjunto, esto es, es equivalente a x o le sigue según la relacion de orden definida por CMP. Esta función utiliza el functor interno devolviendo un iterador al primer elemento, e, para el que se satisface que comp(e,x) es falso
 
 // ----------------------------- BEGIN Y END----------------------------------
 

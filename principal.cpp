@@ -13,7 +13,7 @@
 
 using namespace std;
 
-/** @brief Lee una columna a partir de un flujo de cadena, proveniente de un csv.
+/** @brief Lee una columna a partir de un flujo de cadena, proviniente de un csv.
  * Comprueba también si se trata de una cadena con comas internas o sin ellas.
  * @param[in] ss stringstream de la linea
  * @return Columna en formato string

@@ -68,7 +68,7 @@ typename conjunto<CMP>::const_iterator conjunto<CMP>::find(const long int & id) 
     conjunto<CMP>::const_iterator it;
     vector<conjunto<CMP>::entrada>::const_iterator itvec = vc.begin();
     it.c_itv = vc.end();
-
+ 
     if (this->cheq_rep()) {
         int abajo = 0;
         int arriba = this->vc.size() - 1;

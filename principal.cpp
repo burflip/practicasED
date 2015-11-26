@@ -101,19 +101,19 @@ int main(int argc, char* argv[]) {
 
 	conjunto<greater<crimen>>::const_iterator it;
 	it = ChicagoDB.begin();
-	it = it + 30;
+	it = it + 2;
 	crimen c;
 	c = (*it);
-	cout << "CRIMEN" << c << endl;
+	cout << "CRIMEN" << endl << c << endl;
 	it = ChicagoDB.find (c);
 	
-	cout << *it;
-	/*conjunto<ComparacionPorIUCR>::iterator it;
+	cout << *it; 
+	/*conjunto<greater<crimen>>::iterator it;
 	it = ChicagoDB.begin();
 	
 	while (it != ChicagoDB.end()) {
 		cout << *it << endl;
 		it ++;
-	} */
-    return 0;
+	} 
+    return 0; */
 }

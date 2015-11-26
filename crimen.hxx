@@ -342,25 +342,25 @@ class ComparacionPorIUCR {
 };
 
 ostream& operator<<(ostream& os, const crimen& c) {
-    os << "ID:" << c.getID() << " " <<
-            "Case no:" << c.getCaseNumber() << " " <<
-            "Date:" << c.getDate() << " " <<
-            "Block:" << c.getBlock() << " " <<
-            "IUCR:" << c.getIUCR() << " " <<
-            "Primary T:" << c.getPrimaryType() << " " <<
-            "Description:" << c.getDescription() << " " <<
-            "Location D:" << c.getLocationDescription() << " " <<
-            "Arrest:" << c.getArrest() << " " <<
-            "Domestic:" << c.getDomestic() << " " <<
-            "Beat:" << c.getBeat() << " " <<
-            "District:" << c.getDistrict() << " " <<
-            "Ward:" << c.getWard() << " " <<
-            "Comm Area:" << c.getCommunityArea() << " " <<
-            "X:" << c.getXCoord() << " " <<
-            "Y:" << c.getYCoord() << " " <<
-            "Year:" << c.getYear() << " " <<
-            "Updated On:" << c.getUpdatedOn() << " " <<
-            "Lat:" << c.getLatitude() << " " <<
+    os << "ID:" << c.getID() << "      " <<
+            "Case no:" << c.getCaseNumber() << "      " <<
+            "Date:" << c.getDate() << "      " <<
+            "Block:" << c.getBlock() << "      " <<
+            "IUCR:" << c.getIUCR() << "      " <<
+            "Primary Type:" << c.getPrimaryType() << "      " <<
+            "Description:" << c.getDescription() << "      " <<
+            "Location Description:" << c.getLocationDescription() << "      " <<
+            "Arrest:" << c.getArrest() << "      " <<
+            "Domestic:" << c.getDomestic() << "      " <<
+            "Beat:" << c.getBeat() << "      " <<
+            "District:" << c.getDistrict() << "      " <<
+            "Ward:" << c.getWard() << "      " <<
+            "Comm Area:" << c.getCommunityArea() << "      " <<
+            "X:" << c.getXCoord() << "      " <<
+            "Y:" << c.getYCoord() << "      " <<
+            "Year:" << c.getYear() << "      " <<
+            "Updated On:" << c.getUpdatedOn() << "      " <<
+            "Lat:" << c.getLatitude() << "      " <<
             "Long:" << c.getLongitude() << endl;
 
     return os;

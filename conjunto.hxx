@@ -86,30 +86,52 @@ typename conjunto<CMP>::const_iterator conjunto<CMP>::find(const long int & id) 
 template <class CMP>
 typename conjunto<CMP>::const_iterator conjunto<CMP>::find(const crimen & c) const {
     conjunto::const_iterator it;
-    vector<conjunto::entrada>::const_iterator itvec = vc.begin();
-    it.c_itv = vc.end();
+    it.c_itv = vc.begin();
+    bool encontrado = false;
     
-    if (this->cheq_rep()) {
-		int abajo = 0;
-		int arriba = this->vc.size() - 1;
-		int centro;
     
-		while (abajo <= arriba) {
-			centro = ((arriba-abajo) / 2) + abajo;
-			if ((!comp(vc.at(centro),c)) && !comp(c,vc.at(centro))) {
-				itvec = vc.begin() + centro;
-				it.c_itv = itvec;
+    while (it.c_itv <= vc.end() && !encontrado)
+	{
+			if ((!comp((*it),c)) && !comp(c,(*it)))
+				encontrado = true;
+			else
+				it++;
+	}
+	
+			
+    /* vector<conjunto::entrada>::const_iterator itvec = vc.begin();
+    it.c_itv = vc.begin();
+    
+   
+	int abajo = 0;
+	int arriba = this->vc.size() - 1;
+	int centro;
+	bool encontrado = false;
+    
+	while (abajo <= arriba) {
+		centro = ((arriba+abajo) / 2);
+		cout << "ADIOS" << endl;
+
+		if ((!comp(vc.at(centro),c)) && !comp(c,vc.at(centro))) {
+			it.c_itv = vc.begin() + centro; 
+			encontrado = true;
+		}
+		else {
+			if (comp(vc.at(centro), c)) {
+				cout << "ARRIBA" << endl;
+				arriba = centro - 1;
 			}
 			else {
-				if (comp(vc.at(centro), c))
-					arriba = centro-1;
-				else
-					abajo = centro +1;
-			}
-		}
+				cout << "ABAJO" << endl;
+				abajo = centro + 1;		
+			}	
+		}	
 	}
-
-    return it;
+	
+	if (!encontrado)
+		it.c_itv = vc.end();
+	*/
+	return it;
 
 }
 

@@ -110,6 +110,8 @@ public:
 
 	conjunto<CMP>::const_iterator find(const crimen & c) const;
 
+	conjunto<CMP>::iterator find(const crimen & c);
+
     string zeroFill(const string & s, unsigned int n) const;
     /** @brief busca los crimenes con el mismo codigo IUCR
     @param icur identificador del crimen  buscar
@@ -190,6 +192,8 @@ public:
 	conjunto(iterator ini, iterator fin);
 	conjunto<CMP>::iterator lower_bound(const entrada & x);
 	conjunto<CMP>::const_iterator lower_bound(const entrada & x)const;
+	conjunto<CMP>::iterator upper_bound(const entrada & x);
+	conjunto<CMP>::const_iterator upper_bound(const entrada & x)const;
     // ================================= ITERADORES ========================================/
 
     /**@brief devuelve iterador al inicio del conjunto

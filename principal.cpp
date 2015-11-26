@@ -99,13 +99,16 @@ int main(int argc, char* argv[]) {
     conjunto<greater<crimen>> ChicagoDB;
     load(ChicagoDB, "crimenes100.csv");
 
+
+	cout << "HOLA" << endl;
+
 	conjunto<greater<crimen>>::const_iterator it;
 	it = ChicagoDB.begin();
-	it = it + 2;
+	it = it + 5;
 	crimen c;
 	c = (*it);
-	cout << "CRIMEN" << endl << c << endl;
-	it = ChicagoDB.find (c);
+	cout << c << endl;
+	it = ChicagoDB.lower_bound (c);
 	
 	cout << *it; 
 	/*conjunto<greater<crimen>>::iterator it;

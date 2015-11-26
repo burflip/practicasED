@@ -97,19 +97,36 @@ typename conjunto<CMP>::const_iterator conjunto<CMP>::find(const crimen & c) con
 			else
 				it++;
 	}
+}
 	
+template <class CMP>
+typename conjunto<CMP>::iterator conjunto<CMP>::find(const crimen & c) {
+    conjunto::iterator it;
+    it.itv = vc.begin();
+    bool encontrado = false;
+    
+    
+    while (it.itv <= vc.end() && !encontrado)
+	{
+			if ((!comp((*it),c)) && !comp(c,(*it)))
+				encontrado = true;
+			else
+				it++;
+	}
+	
+	return it;
+}
 			
     /* vector<conjunto::entrada>::const_iterator itvec = vc.begin();
     it.c_itv = vc.begin();
-    
-   
+  
 	int abajo = 0;
 	int arriba = this->vc.size() - 1;
 	int centro;
 	bool encontrado = false;
     
 	while (abajo <= arriba) {
-		centro = ((arriba+abajo) / 2);
+		centro = (arriba+abajo) / 2;
 		cout << "ADIOS" << endl;
 
 		if ((!comp(vc.at(centro),c)) && !comp(c,vc.at(centro))) {
@@ -131,9 +148,6 @@ typename conjunto<CMP>::const_iterator conjunto<CMP>::find(const crimen & c) con
 	if (!encontrado)
 		it.c_itv = vc.end();
 	*/
-	return it;
-
-}
 
 template <class CMP>
 string conjunto<CMP>::zeroFill(const string & s, unsigned int n) const {
@@ -317,8 +331,12 @@ typename conjunto<CMP>::iterator conjunto<CMP>::lower_bound (const conjunto<CMP>
 	conjunto<CMP>::iterator it;
 	
 	it = find(x);
-	if (it.itv != vc.end())
-		it++;
+	
+	if (it.itv != vc.end()){
+		if (it.itv != vc.begin())
+			it = it - 1;
+	}	
+	
 		
 	return it;
 }
@@ -330,13 +348,49 @@ typename conjunto<CMP>::const_iterator conjunto<CMP>::lower_bound (const conjunt
 	conjunto<CMP>::const_iterator itc;
 	
 	itc = find(x);
-	if (itc.itv != vc.end())
-		itc++;
+	
+	/* if (itc.c_itv != vc.end()){
+		if (itc.c_itv != vc.begin())
+			itc = itc - 1;
+	}
 		
 	return itc; 
+	* */
 }
-// Devuelven un iterador al primer elemento en el contenedor que no precede a x en el conjunto, esto es, es equivalente a x o le sigue según la relacion de orden definida por CMP. Esta función utiliza el functor interno devolviendo un iterador al primer elemento, e, para el que se satisface que comp(e,x) es falso
 
+template <class CMP>
+
+typename conjunto<CMP>::iterator conjunto<CMP>::upper_bound (const conjunto<CMP>::entrada & x) {
+	conjunto<CMP>::iterator it;
+	
+	it = find(x);
+	
+	if (it.itv != vc.end()){
+		if (it.itv != vc.end() - 1)
+			it = it + 1;
+	}
+		
+	return it;
+}
+
+
+template <class CMP>
+
+typename conjunto<CMP>::const_iterator conjunto<CMP>::upper_bound (const conjunto<CMP>::entrada & x) const {
+	conjunto<CMP>::const_iterator cit;
+	cout << "UPPERASDF" << endl;
+	cit = find(x);
+	
+	cout << "UPPER" << endl;
+	if (cit.c_itv != vc.end()){
+		if (cit.c_itv < vc.end() - 1){
+			cout << "ADIOS" << endl;
+			cit = cit + 1;
+		}
+	}
+		
+	return cit;
+}
 // ----------------------------- BEGIN Y END----------------------------------
 
 template <class CMP>

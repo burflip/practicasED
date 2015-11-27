@@ -99,9 +99,6 @@ int main(int argc, char* argv[]) {
     conjunto<greater<crimen>> ChicagoDB;
     load(ChicagoDB, "crimenes100.csv");
 
-
-	cout << "HOLA" << endl;
-
 	conjunto<greater<crimen>>::const_iterator it;
 	it = ChicagoDB.begin();
 	it = it + 5;

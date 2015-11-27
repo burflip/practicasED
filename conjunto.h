@@ -53,7 +53,7 @@ if (!agresion.empty()){
 
 template <class CMP>
 
-class conjunto{
+class conjunto {
 public:
     /** @brief entrada permite hacer referencia al elemento  almacenados en cada una de las posiciones del conjunto
      */
@@ -107,10 +107,17 @@ public:
      */
     conjunto<CMP>::const_iterator find(const long int & id)const;
 
-
-	conjunto<CMP>::const_iterator find(const crimen & c) const;
-
-	conjunto<CMP>::iterator find(const crimen & c);
+    /** @brief busca un crimen en el conjunto
+    @param c crimen a buscar
+    @return Si existe una entrada en el conjunto devuelve un iterador a lo posicion donde está el elemento. Si  no se encuentra devuelve end()
+    @post no modifica el conjunto.
+     */
+    conjunto<CMP>::const_iterator find(const crimen & c) const;
+    /** @brief busca un crimen en el conjunto
+    @param c crimen a buscar
+    @return Si existe una entrada en el conjunto devuelve un iterador a lo posicion donde está el elemento. Si  no se encuentra devuelve end()
+     */
+    conjunto<CMP>::iterator find(const crimen & c);
 
     string zeroFill(const string & s, unsigned int n) const;
     /** @brief busca los crimenes con el mismo codigo IUCR
@@ -189,11 +196,31 @@ public:
      */
     bool empty() const;
 
-	conjunto(iterator ini, iterator fin);
-	conjunto<CMP>::iterator lower_bound(const entrada & x);
-	conjunto<CMP>::const_iterator lower_bound(const entrada & x)const;
-	conjunto<CMP>::iterator upper_bound(const entrada & x);
-	conjunto<CMP>::const_iterator upper_bound(const entrada & x)const;
+    conjunto(iterator ini, iterator fin);
+    /**
+     * @brief Devuelve un iterador apuntando al elemento inmediatamente anterior a x, o vc.begin();
+     * @param x Elemento sobre el que trabajar
+     * @return conjunto<CMP>::iterator it
+     */
+    conjunto<CMP>::iterator lower_bound(const entrada & x);
+    /**
+     * @brief Devuelve un iterador constante apuntando al elemento inmediatamente anterior a x, o vc.begin();
+     * @param x Elemento sobre el que trabajar
+     * @return conjunto<CMP>::const_iterator it
+     */
+    conjunto<CMP>::const_iterator lower_bound(const entrada & x)const;
+    /**
+     * @brief Devuelve un iterador apuntando al elemento inmediatamente posterior a x, o vc.end();
+     * @param x Elemento sobre el que trabajar
+     * @return conjunto<CMP>::iterator it
+     */
+    conjunto<CMP>::iterator upper_bound(const entrada & x);
+    /**
+     * @brief Devuelve un iterador constante apuntando al elemento inmediatamente posterior a x, o vc.end();
+     * @param x Elemento sobre el que trabajar
+     * @return conjunto<CMP>::const_iterator it
+     */
+    conjunto<CMP>::const_iterator upper_bound(const entrada & x)const;
     // ================================= ITERADORES ========================================/
 
     /**@brief devuelve iterador al inicio del conjunto
@@ -210,19 +237,73 @@ public:
      * */
     class iterator {
     public:
+        /**
+         * @brief Constructor por defecto
+         */
         iterator();
+        /**
+         * @brief Constructor de copia
+         * @param it
+         */
         iterator(const iterator & it);
 
+        /**
+         * @brief Sobrecarga del puntero, devuelve un crimen
+         * @return conjunto<CMP>::entrada
+         */
         const conjunto<CMP>::entrada & operator*() const;
 
+        /**
+         * Sobrecarga del operador +. Aumenta la posición del iterador en i posiciones.
+         * @param i
+         * @return iterator Referencia al iterador
+         */
         iterator & operator+(int i);
+        /**
+         * @brief Sobrecarga del operador ++ para ++it; Aumenta la posición del iterador en 1.
+         * @param 
+         * @return iterator Referencia al iterador
+         */
         iterator operator++(int);
+        /**
+         * @brief Sobrecarga del operador ++ para it++; Aumenta la posición del iterador en 1.
+         * @return iterator Referencia al iterador
+         */
         iterator & operator++();
+        /**
+         * @brief Sobrecarga del operador -. Disminuye el iterador en i posiciones.
+         * @param i Posiciones a disminuir
+         * @return iterator Referencia al iterador
+         */
         iterator & operator-(int i);
+        /**
+         * @brief Sobrecarga del operador -- para --it; Disminuye el iterador en una posición.
+         * @param 
+         * @return iterator Referencia al iterador
+         */
         iterator operator--(int);
+        /**
+         * @brief Sobrecarga del operador -- para it--; Disminuye el iterador en una posición.
+         * @return iterator Referencia al iterador
+         */
         iterator & operator--();
+        /**
+         * @brief Sobrecarga del operador de comparación.
+         * @param it
+         * @return true si son iguales, false si no.
+         */
         bool operator==(const iterator & it);
+        /**
+         * @brief Sobrecarga del operador de comparación.
+         * @param it
+         * @return false si son iguales, true si no.
+         */
         bool operator!=(const iterator & it);
+        /**
+         * @brief Sobrecarga del operador de asignación. Iguala la posición de un iterador a la de otro.
+         * @param it
+         * @return iterator referencia a this.
+         */
         iterator & operator=(const iterator & it);
 
     private:
@@ -249,20 +330,75 @@ public:
      * */
     class const_iterator {
     public:
+        /**
+         * @brief Constructor por defecto
+         */
         const_iterator();
+        /**
+         * @brief Constructor de copia.
+         * @param it
+         */
         const_iterator(const const_iterator & it);
         /** @brief Convierte iterator en const_iterator
          */
         const_iterator(const iterator & it);
+        /**
+         * @brief Sobrecarga del puntero, devuelve un crimen
+         * @return conjunto<CMP>::entrada
+         */
         const conjunto<CMP>::entrada & operator*() const;
 
+        /**
+         * Sobrecarga del operador +. Aumenta la posición del iterador en i posiciones.
+         * @param i
+         * @return const_iterator Referencia al iterador
+         */
         const_iterator & operator+(int i);
+        /**
+         * @brief Sobrecarga del operador ++ para ++it; Aumenta la posición del iterador en 1.
+         * @param
+         * @return const_iterator Referencia al iterador
+         */
         const_iterator operator++(int);
+        /**
+         * @brief Sobrecarga del operador ++ para it++; Aumenta la posición del iterador en 1.
+         * @return const_iterator Referencia al iterador
+         */
         const_iterator & operator++();
+        /**
+         * @brief Sobrecarga del operador -. Disminuye el iterador en i posiciones.
+         * @param i Posiciones a disminuir
+         * @return const_iterator Referencia al iterador
+         */
+        const_iterator & operator-(int i);
+        /**
+         * @brief Sobrecarga del operador -- para --it; Disminuye el iterador en una posición.
+         * @param
+         * @return const_iterator Referencia al iterador
+         */
         const_iterator operator--(int);
+        /**
+         * @brief Sobrecarga del operador -- para it--; Disminuye el iterador en una posición.
+         * @return const_iterator Referencia al iterador
+         */
         const_iterator & operator--();
+        /**
+         * @brief Sobrecarga del operador de comparación.
+         * @param it
+         * @return true si son iguales, false si no.
+         */
         bool operator==(const const_iterator & it);
+        /**
+         * @brief Sobrecarga del operador de comparación.
+         * @param it
+         * @return false si son iguales, true si no.
+         */
         bool operator!=(const const_iterator & it);
+        /**
+         * @brief Sobrecarga del operador de asignación. Iguala la posición de un iterador a la de otro.
+         * @param it
+         * @return const_iterator referencia a this.
+         */
         const_iterator & operator=(const const_iterator & it);
     private:
 
@@ -271,7 +407,7 @@ public:
         conjunto<CMP> * punt_const;
     };
 
-  
+
 private:
     vector<crimen> vc; // vector ORDENADO por crimen.id que almacena los elementos del conjunto
     CMP comp;
@@ -306,7 +442,6 @@ private:
 
 /** @brief imprime todas las entradas del conjunto 
 @post  No se modifica el conjunto.
-@todo implementar esta funcion
  */
 template <class CMP>
 ostream & operator<<(ostream & sal, const conjunto<CMP> & D);

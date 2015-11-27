@@ -326,7 +326,6 @@ conjunto<CMP>::conjunto(iterator ini, iterator fin) {
 }
 	// Constructor de conjunto que contiene los elementos contenidos en el rango [ini,fin) 
 template <class CMP>
-
 typename conjunto<CMP>::iterator conjunto<CMP>::lower_bound (const conjunto<CMP>::entrada & x) {
 	conjunto<CMP>::iterator it;
 	
@@ -359,7 +358,6 @@ typename conjunto<CMP>::const_iterator conjunto<CMP>::lower_bound (const conjunt
 }
 
 template <class CMP>
-
 typename conjunto<CMP>::iterator conjunto<CMP>::upper_bound (const conjunto<CMP>::entrada & x) {
 	conjunto<CMP>::iterator it;
 	

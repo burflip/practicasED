@@ -1,0 +1,380 @@
+\hypertarget{classfecha}{\section{fecha Class Reference}
+\label{classfecha}\index{fecha@{fecha}}
+}
+
+
+Clase fecha, asociada a la.  
+
+
+
+
+{\ttfamily \#include $<$fecha.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classfecha_a6775ef84b5838e12e28fd341793f4539}{fecha} ()
+\begin{DoxyCompactList}\small\item\em Crea una instancia del objeto fecha. \end{DoxyCompactList}\item 
+\hypertarget{classfecha_aed5c22d5eeb15f1f2927d5a2c28b74df}{{\bfseries fecha} (const string \&s)}\label{classfecha_aed5c22d5eeb15f1f2927d5a2c28b74df}
+
+\item 
+void \hyperlink{classfecha_a701f273db0e9d4f06130885050959a02}{string\-To\-Fecha} (const string \&x)
+\begin{DoxyCompactList}\small\item\em Coge un string que se le pasa como argumento y lo almacena en la instancia del tipo fecha. \end{DoxyCompactList}\item 
+string \hyperlink{classfecha_a26d22b980284408eac0da084f358c43b}{to\-String} () const 
+\begin{DoxyCompactList}\small\item\em Convierte una instancia del objeto en una cadena de caracteres. \end{DoxyCompactList}\item 
+int \hyperlink{classfecha_aba5e861a7ad432219c9e1caa3fc2a2c3}{get\-Year} ()
+\begin{DoxyCompactList}\small\item\em Devuelve el año de la fecha en cuestión. \end{DoxyCompactList}\item 
+int \hyperlink{classfecha_a139cadcea490869e4e297f1108739394}{get\-Month} ()
+\begin{DoxyCompactList}\small\item\em Devuelve el mes de la fecha en cuestión. \end{DoxyCompactList}\item 
+int \hyperlink{classfecha_abf942ae9badb565bd94abfc3b843dfa7}{get\-Day} ()
+\begin{DoxyCompactList}\small\item\em Devuelve el day de la fecha en cuestión. \end{DoxyCompactList}\item 
+int \hyperlink{classfecha_ad5d69ad84e9ff0cd627a9dbfc733fcb3}{get\-Hour} ()
+\begin{DoxyCompactList}\small\item\em Devuelve la hora de la fecha en cuestión. \end{DoxyCompactList}\item 
+int \hyperlink{classfecha_a7f19b4b179ed865b7d714a55aa041d79}{get\-Minute} ()
+\begin{DoxyCompactList}\small\item\em Devuelve el minuto de la fecha en cuestión. \end{DoxyCompactList}\item 
+int \hyperlink{classfecha_ad8da98b1a9e43de1148cc3e13b9102fd}{get\-Sec} ()
+\begin{DoxyCompactList}\small\item\em Devuelve el segundo de la fecha en cuestión. \end{DoxyCompactList}\item 
+\hyperlink{classfecha}{fecha} \& \hyperlink{classfecha_aeb5a68104e936f98eb933b4d6856f841}{operator=} (const \hyperlink{classfecha}{fecha} \&f)
+\begin{DoxyCompactList}\small\item\em Sobrecarga el operador de igualción y permite utilizarlo con una fecha. \end{DoxyCompactList}\item 
+\hyperlink{classfecha}{fecha} \& \hyperlink{classfecha_afff8905488f3d97ecfe6141f8521ac22}{operator=} (const string \&s)
+\begin{DoxyCompactList}\small\item\em Sobrecarga el operador de igualción y permite utilizarlo con una fecha. \end{DoxyCompactList}\item 
+bool \hyperlink{classfecha_ac971e131a6e3edf57c2313468524f364}{operator==} (const \hyperlink{classfecha}{fecha} \&f) const 
+\begin{DoxyCompactList}\small\item\em Operador de comparación. \end{DoxyCompactList}\item 
+bool \hyperlink{classfecha_a27803300b9698e1a40ef48f2009948c5}{operator$<$} (const \hyperlink{classfecha}{fecha} \&f) const 
+\begin{DoxyCompactList}\small\item\em Operador de comparación. \end{DoxyCompactList}\item 
+bool \hyperlink{classfecha_aaded7646e80d88492b31b17b4fb001fd}{operator$>$} (const \hyperlink{classfecha}{fecha} \&f) const 
+\begin{DoxyCompactList}\small\item\em Operador de comparación. \end{DoxyCompactList}\item 
+bool \hyperlink{classfecha_a8dfb2f2a7424bdb1dacc6df122b0a0c8}{operator$<$=} (const \hyperlink{classfecha}{fecha} \&f) const 
+\begin{DoxyCompactList}\small\item\em Operador de comparación. \end{DoxyCompactList}\item 
+bool \hyperlink{classfecha_a98d0f3009cb7205b5ddb3b81596d9cc7}{operator$>$=} (const \hyperlink{classfecha}{fecha} \&f) const 
+\begin{DoxyCompactList}\small\item\em Operador de comparación. \end{DoxyCompactList}\item 
+bool \hyperlink{classfecha_a1f6d28759c45b138efb80d25a7c398b8}{operator!=} (const \hyperlink{classfecha}{fecha} \&f) const 
+\begin{DoxyCompactList}\small\item\em Operador de comparación. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+ostream \& \hyperlink{classfecha_a9787de38b43ae62ba2c0812f3dd18394}{operator$<$$<$} (ostream \&os, const \hyperlink{classfecha}{fecha} \&f)
+\begin{DoxyCompactList}\small\item\em Sobrecarga el operador de cauce para poder monstrar por pantalla el. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Clase fecha, asociada a la. 
+
+\hyperlink{classfecha_a6775ef84b5838e12e28fd341793f4539}{fecha\-::fecha}, ..... Descripción contiene toda la información asociada a una fecha con el formato mm/dd/aaaa hh\-:mm\-:ss A\-M/\-P\-M \begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000004}{Todo}]Escribe la documentación de la clase 
+
+Implementar esta clase\end{DoxyRefDesc}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classfecha_a6775ef84b5838e12e28fd341793f4539}{\index{fecha@{fecha}!fecha@{fecha}}
+\index{fecha@{fecha}!fecha@{fecha}}
+\subsubsection[{fecha}]{\setlength{\rightskip}{0pt plus 5cm}fecha\-::fecha (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classfecha_a6775ef84b5838e12e28fd341793f4539}
+
+
+Crea una instancia del objeto fecha. 
+
+fichero de implementacion de la clase fecha
+
+\subsection{Member Function Documentation}
+\hypertarget{classfecha_abf942ae9badb565bd94abfc3b843dfa7}{\index{fecha@{fecha}!get\-Day@{get\-Day}}
+\index{get\-Day@{get\-Day}!fecha@{fecha}}
+\subsubsection[{get\-Day}]{\setlength{\rightskip}{0pt plus 5cm}int fecha\-::get\-Day (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classfecha_abf942ae9badb565bd94abfc3b843dfa7}
+
+
+Devuelve el day de la fecha en cuestión. 
+
+\begin{DoxyReturn}{Returns}
+int con el day 
+\end{DoxyReturn}
+\hypertarget{classfecha_ad5d69ad84e9ff0cd627a9dbfc733fcb3}{\index{fecha@{fecha}!get\-Hour@{get\-Hour}}
+\index{get\-Hour@{get\-Hour}!fecha@{fecha}}
+\subsubsection[{get\-Hour}]{\setlength{\rightskip}{0pt plus 5cm}int fecha\-::get\-Hour (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classfecha_ad5d69ad84e9ff0cd627a9dbfc733fcb3}
+
+
+Devuelve la hora de la fecha en cuestión. 
+
+\begin{DoxyReturn}{Returns}
+int con la hora 
+\end{DoxyReturn}
+\hypertarget{classfecha_a7f19b4b179ed865b7d714a55aa041d79}{\index{fecha@{fecha}!get\-Minute@{get\-Minute}}
+\index{get\-Minute@{get\-Minute}!fecha@{fecha}}
+\subsubsection[{get\-Minute}]{\setlength{\rightskip}{0pt plus 5cm}int fecha\-::get\-Minute (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classfecha_a7f19b4b179ed865b7d714a55aa041d79}
+
+
+Devuelve el minuto de la fecha en cuestión. 
+
+\begin{DoxyReturn}{Returns}
+int con el minuto 
+\end{DoxyReturn}
+\hypertarget{classfecha_a139cadcea490869e4e297f1108739394}{\index{fecha@{fecha}!get\-Month@{get\-Month}}
+\index{get\-Month@{get\-Month}!fecha@{fecha}}
+\subsubsection[{get\-Month}]{\setlength{\rightskip}{0pt plus 5cm}int fecha\-::get\-Month (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classfecha_a139cadcea490869e4e297f1108739394}
+
+
+Devuelve el mes de la fecha en cuestión. 
+
+\begin{DoxyReturn}{Returns}
+int con el mes 
+\end{DoxyReturn}
+\hypertarget{classfecha_ad8da98b1a9e43de1148cc3e13b9102fd}{\index{fecha@{fecha}!get\-Sec@{get\-Sec}}
+\index{get\-Sec@{get\-Sec}!fecha@{fecha}}
+\subsubsection[{get\-Sec}]{\setlength{\rightskip}{0pt plus 5cm}int fecha\-::get\-Sec (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classfecha_ad8da98b1a9e43de1148cc3e13b9102fd}
+
+
+Devuelve el segundo de la fecha en cuestión. 
+
+\begin{DoxyReturn}{Returns}
+int con el segundo 
+\end{DoxyReturn}
+\hypertarget{classfecha_aba5e861a7ad432219c9e1caa3fc2a2c3}{\index{fecha@{fecha}!get\-Year@{get\-Year}}
+\index{get\-Year@{get\-Year}!fecha@{fecha}}
+\subsubsection[{get\-Year}]{\setlength{\rightskip}{0pt plus 5cm}int fecha\-::get\-Year (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classfecha_aba5e861a7ad432219c9e1caa3fc2a2c3}
+
+
+Devuelve el año de la fecha en cuestión. 
+
+\begin{DoxyReturn}{Returns}
+int con el año 
+\end{DoxyReturn}
+\hypertarget{classfecha_a1f6d28759c45b138efb80d25a7c398b8}{\index{fecha@{fecha}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!fecha@{fecha}}
+\subsubsection[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool fecha\-::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf fecha} \&}]{f}
+\end{DoxyParamCaption}
+) const}}\label{classfecha_a1f6d28759c45b138efb80d25a7c398b8}
+
+
+Operador de comparación. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f} & instancia de fecha\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Devuelve true si el operando de la izquierda distinto al del de la derecha o false si no 
+\end{DoxyReturn}
+\hypertarget{classfecha_a27803300b9698e1a40ef48f2009948c5}{\index{fecha@{fecha}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!fecha@{fecha}}
+\subsubsection[{operator$<$}]{\setlength{\rightskip}{0pt plus 5cm}bool fecha\-::operator$<$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf fecha} \&}]{f}
+\end{DoxyParamCaption}
+) const}}\label{classfecha_a27803300b9698e1a40ef48f2009948c5}
+
+
+Operador de comparación. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f} & instancia de fecha\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Devuelve true si el operando de la izquierda es menor que el de la derecha o false si no 
+\end{DoxyReturn}
+\hypertarget{classfecha_a8dfb2f2a7424bdb1dacc6df122b0a0c8}{\index{fecha@{fecha}!operator$<$=@{operator$<$=}}
+\index{operator$<$=@{operator$<$=}!fecha@{fecha}}
+\subsubsection[{operator$<$=}]{\setlength{\rightskip}{0pt plus 5cm}bool fecha\-::operator$<$= (
+\begin{DoxyParamCaption}
+\item[{const {\bf fecha} \&}]{f}
+\end{DoxyParamCaption}
+) const}}\label{classfecha_a8dfb2f2a7424bdb1dacc6df122b0a0c8}
+
+
+Operador de comparación. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f} & instancia de fecha\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Devuelve true si el operando de la izquierda es menor o igual que el de la derecha o false si no 
+\end{DoxyReturn}
+\hypertarget{classfecha_aeb5a68104e936f98eb933b4d6856f841}{\index{fecha@{fecha}!operator=@{operator=}}
+\index{operator=@{operator=}!fecha@{fecha}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fecha} \& fecha\-::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf fecha} \&}]{f}
+\end{DoxyParamCaption}
+)}}\label{classfecha_aeb5a68104e936f98eb933b4d6856f841}
+
+
+Sobrecarga el operador de igualción y permite utilizarlo con una fecha. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f} & una instancia del tipo fecha\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Devuelve el propio objeto fecha para que la sobrecarga del operador lo almacene a la izquierda del operador 
+\end{DoxyReturn}
+\hypertarget{classfecha_afff8905488f3d97ecfe6141f8521ac22}{\index{fecha@{fecha}!operator=@{operator=}}
+\index{operator=@{operator=}!fecha@{fecha}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fecha} \& fecha\-::operator= (
+\begin{DoxyParamCaption}
+\item[{const string \&}]{s}
+\end{DoxyParamCaption}
+)}}\label{classfecha_afff8905488f3d97ecfe6141f8521ac22}
+
+
+Sobrecarga el operador de igualción y permite utilizarlo con una fecha. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em s} & s es un string con el formato mm/dd/aaaa hh\-:mm\-:ss A\-M/\-P\-M\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Devuelve el propio objeto fecha para que la sobrecarga del operador lo almacene a la izquierda del operador 
+\end{DoxyReturn}
+\hypertarget{classfecha_ac971e131a6e3edf57c2313468524f364}{\index{fecha@{fecha}!operator==@{operator==}}
+\index{operator==@{operator==}!fecha@{fecha}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool fecha\-::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf fecha} \&}]{f}
+\end{DoxyParamCaption}
+) const}}\label{classfecha_ac971e131a6e3edf57c2313468524f364}
+
+
+Operador de comparación. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f} & instancia de fecha\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Devuelve true si son iguales o false si no 
+\end{DoxyReturn}
+\hypertarget{classfecha_aaded7646e80d88492b31b17b4fb001fd}{\index{fecha@{fecha}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!fecha@{fecha}}
+\subsubsection[{operator$>$}]{\setlength{\rightskip}{0pt plus 5cm}bool fecha\-::operator$>$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf fecha} \&}]{f}
+\end{DoxyParamCaption}
+) const}}\label{classfecha_aaded7646e80d88492b31b17b4fb001fd}
+
+
+Operador de comparación. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f} & instancia de fecha\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Devuelve true si el operando de la izquierda es mayor que el de la derecha o false si no 
+\end{DoxyReturn}
+\hypertarget{classfecha_a98d0f3009cb7205b5ddb3b81596d9cc7}{\index{fecha@{fecha}!operator$>$=@{operator$>$=}}
+\index{operator$>$=@{operator$>$=}!fecha@{fecha}}
+\subsubsection[{operator$>$=}]{\setlength{\rightskip}{0pt plus 5cm}bool fecha\-::operator$>$= (
+\begin{DoxyParamCaption}
+\item[{const {\bf fecha} \&}]{f}
+\end{DoxyParamCaption}
+) const}}\label{classfecha_a98d0f3009cb7205b5ddb3b81596d9cc7}
+
+
+Operador de comparación. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f} & instancia de fecha\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Devuelve true si el operando de la izquierda es mayor o igual que el de la derecha o false si no 
+\end{DoxyReturn}
+\hypertarget{classfecha_a701f273db0e9d4f06130885050959a02}{\index{fecha@{fecha}!string\-To\-Fecha@{string\-To\-Fecha}}
+\index{string\-To\-Fecha@{string\-To\-Fecha}!fecha@{fecha}}
+\subsubsection[{string\-To\-Fecha}]{\setlength{\rightskip}{0pt plus 5cm}void fecha\-::string\-To\-Fecha (
+\begin{DoxyParamCaption}
+\item[{const string \&}]{x}
+\end{DoxyParamCaption}
+)}}\label{classfecha_a701f273db0e9d4f06130885050959a02}
+
+
+Coge un string que se le pasa como argumento y lo almacena en la instancia del tipo fecha. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x} & string con la fecha en formato M\-M/\-D\-D/\-Y\-Y\-Y\-Y hh\-:mm\-:ss A\-M ó M\-M/\-D\-D/\-Y\-Y\-Y\-Y hh\-:mm\-:ss P\-M \\
+\hline
+\end{DoxyParams}
+\hypertarget{classfecha_a26d22b980284408eac0da084f358c43b}{\index{fecha@{fecha}!to\-String@{to\-String}}
+\index{to\-String@{to\-String}!fecha@{fecha}}
+\subsubsection[{to\-String}]{\setlength{\rightskip}{0pt plus 5cm}string fecha\-::to\-String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classfecha_a26d22b980284408eac0da084f358c43b}
+
+
+Convierte una instancia del objeto en una cadena de caracteres. 
+
+\begin{DoxyReturn}{Returns}
+Devuelve la instancia convertida en un string 
+\end{DoxyReturn}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{classfecha_a9787de38b43ae62ba2c0812f3dd18394}{\index{fecha@{fecha}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!fecha@{fecha}}
+\subsubsection[{operator$<$$<$}]{\setlength{\rightskip}{0pt plus 5cm}ostream\& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{os, }
+\item[{const {\bf fecha} \&}]{f}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [friend]}}}\label{classfecha_a9787de38b43ae62ba2c0812f3dd18394}
+
+
+Sobrecarga el operador de cauce para poder monstrar por pantalla el. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em os} & instancia de ostream, a la izquierda del operador \\
+\hline
+\mbox{\tt in}  & {\em f} & instancia del objeto fecha, a la derecha del operador\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Devuelve la instancia de ostream. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+fecha.\-h\item 
+fecha.\-hxx\end{DoxyCompactItemize}
